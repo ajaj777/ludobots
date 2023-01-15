@@ -13,7 +13,7 @@ class ROBOT:
         pyrosim.Prepare_To_Simulate(self.robot)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-        
+
     def Prepare_To_Sense(self):
         self.sensors = {}
         for linkName in pyrosim.linkNamesToIndices:
@@ -22,6 +22,7 @@ class ROBOT:
     def Prepare_To_Act(self):
         self.motors = {}
         for jointName in pyrosim.jointNamesToIndices:
+            print(jointName)
             self.motors[jointName] = MOTOR(jointName)
 
     def Sense(self,t):
