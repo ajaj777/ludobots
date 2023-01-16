@@ -1,6 +1,6 @@
 import numpy as np
 
-steps = 750
+steps = 1500
 
 amplitude = np.pi/4
 phaseOffset = np.pi/32
@@ -19,3 +19,6 @@ fl_phaseOffset = 0
 fl_frequency = 9
 
 fl_targetAngles = (np.sin(np.linspace(0, 2*np.pi, steps) * fl_frequency + fl_phaseOffset)  * fl_amplitude) 
+
+
+numberOfGenerations = 10
