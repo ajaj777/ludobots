@@ -1,5 +1,8 @@
 import numpy as np
 
+
+populationSize = 2
+
 steps = 1500
 
 amplitude = np.pi/4

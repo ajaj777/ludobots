@@ -5,12 +5,17 @@ import constants as c
 import random
 
 class SOLUTION():
-    def __init__(self):
+    def __init__(self, id):
+        self.myID = id
         self.weights = np.random.rand(3,2) * 2 - 1
+
+    def SetID(self, id):
+        self.myID = id
 
     def Evaluate(self, directOrGUI):
         self.Generate()
-        os.system('python3 simulate.py ' + directOrGUI)
+        
+        os.system(f'python3 simulate.py ' + directOrGUI +' '+ str(self.myID) + ' &' )
         # read in fitness.txt
         with open('fitness.txt','r') as file:
             lines = file.readlines()
@@ -37,7 +42,7 @@ class SOLUTION():
             pyrosim.End()
 
     def Create_Brain(self):
-        pyrosim.Start_NeuralNetwork("brain.nndf")
+        pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
         pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
         pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
