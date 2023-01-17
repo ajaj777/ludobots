@@ -3,24 +3,33 @@ import pyrosim.pyrosim as pyrosim
 import os
 import constants as c
 import random
+import time
 
 class SOLUTION():
     def __init__(self, id):
         self.myID = id
         self.weights = np.random.rand(3,2) * 2 - 1
 
-    def SetID(self, id):
+    def Set_ID(self, id):
         self.myID = id
 
-    def Evaluate(self, directOrGUI):
+    # def Evaluate(self, directOrGUI):
+    #     self.Start_Simulation(directOrGUI)
+    #     #self.Wait_For_Simulation_To_End()
+
+    def Start_Simulation(self,directOrGUI):
         self.Generate()
-        
         os.system(f'python3 simulate.py ' + directOrGUI +' '+ str(self.myID) + ' &' )
-        # read in fitness.txt
-        with open('fitness.txt','r') as file:
+       
+    def Wait_For_Simulation_To_End(self):
+        fitnessFileName = 'fitness' + str(self.myID) + '.txt'
+        while not os.path.exists(fitnessFileName):
+            time.sleep(0.01)
+        with open(fitnessFileName,'r') as file:
             lines = file.readlines()
             self.fitness = float(lines[0])
-
+        print(self.fitness)
+        os.system('rm ' + fitnessFileName)
 
     def Mutate(self):
         randomRow = random.randint(0,2)

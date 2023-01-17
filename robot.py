@@ -5,6 +5,7 @@ from sensor import SENSOR
 from motor import MOTOR
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 import os
+import time
 
 class ROBOT:
     def __init__(self,solutionID):
@@ -52,5 +53,7 @@ class ROBOT:
         xCoordinateOfLinkZero = positionOfLinkZero[0]
         print(xCoordinateOfLinkZero)
         
-        with open('fitness.txt','w') as file:
+        with open(f'tmp{self.solutionID}.txt','w') as file:
             file.write(str(xCoordinateOfLinkZero))
+
+        os.system(f'mv tmp{self.solutionID}.txt fitness{self.solutionID}.txt')
