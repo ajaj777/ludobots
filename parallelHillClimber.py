@@ -2,6 +2,7 @@ from solution import SOLUTION
 import constants as c
 import copy
 import os
+import math
 
 class PARALLEL_HILL_CLIMBER():
     def __init__(self):
@@ -15,10 +16,10 @@ class PARALLEL_HILL_CLIMBER():
             self.nextAvailableID+=1
         
     def Evaluate(self, solutions):
-        for parent in solutions:
-            self.parents[parent].Start_Simulation("GUI")
-        for parent in solutions:
-            self.parents[parent].Wait_For_Simulation_To_End()
+        for item in solutions:
+            solutions[item].Start_Simulation("DIRECT")
+        for item in solutions:
+            solutions[item].Wait_For_Simulation_To_End()
 
     def Evolve(self):
         self.Evaluate(self.parents)
@@ -31,9 +32,8 @@ class PARALLEL_HILL_CLIMBER():
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        exit()
-        # self.Print()
-        # self.Select()
+        self.Print()
+        self.Select()
         
 
     def Spawn(self):
@@ -49,13 +49,19 @@ class PARALLEL_HILL_CLIMBER():
 
     def Select(self):
         # parent does worse because we want negative values
-        if self.parent.fitness > self.child.fitness:
-            self.parent = self.child
+        for parent in self.parents:
+            if self.parents[parent].fitness > self.children[parent].fitness:
+                self.parents[parent] = self.children[parent]
 
     def Show_Best(self):
-       # self.parent.Evaluate("GUI")
-       pass
+        best = math.inf
+        bestParent = None
+        for parent in self.parents:
+            if self.parents[parent].fitness < best:
+                bestParent = self.parents[parent]
+        bestParent.Start_Simulation('GUI')
+        
         
     def Print(self):
-        
-        print(f'\nParent: {self.parent.fitness} | Child: {self.child.fitness}\n')
+        for parent in self.parents:
+            print(f'\nParent: {self.parents[parent].fitness} | Child: {self.children[parent].fitness}\n')

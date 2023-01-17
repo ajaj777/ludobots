@@ -28,7 +28,7 @@ class SOLUTION():
         with open(fitnessFileName,'r') as file:
             lines = file.readlines()
             self.fitness = float(lines[0])
-        print(self.fitness)
+       # print(self.fitness)
         os.system('rm ' + fitnessFileName)
 
     def Mutate(self):
