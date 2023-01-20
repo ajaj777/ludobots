@@ -7,7 +7,7 @@ import math
 class PARALLEL_HILL_CLIMBER():
     def __init__(self):
         os.system('rm brain*.nndf')
-        os.system('rm fitness*.nndf')
+        os.system('rm fitness*.txt')
 
         self.parents = {}
         self.nextAvailableID = 0
