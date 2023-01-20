@@ -1,8 +1,15 @@
 import numpy as np
 
 
-populationSize = 10
-numberOfGenerations = 10
+
+sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg"]
+motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg",]
+
+populationSize = 1
+numberOfGenerations = 1
+
+numSensorNeurons = 4
+numMotorNeurons = 3
 
 steps = 2000
 
@@ -15,7 +22,7 @@ width = 1
 height = 1
 x = 0
 y  = 0
-z = 1.5
+z = 1
 
 
 fl_amplitude = np.pi/4
