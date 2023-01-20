@@ -5,13 +5,14 @@ import numpy as np
 sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg","FrontLowerLeg","BackLowerLeg","LeftLowerLeg","RightLowerLeg"]
 motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg","FrontLeg_FrontLowerLeg","BackLeg_BackLowerLeg","LeftLeg_LeftLowerLeg","RightLeg_RightLowerLeg"]
 
-populationSize = 1
-numberOfGenerations = 1
+populationSize = 15
+numberOfGenerations = 20
 
 numSensorNeurons = 4
 numMotorNeurons = 3
 
-steps = 2000
+motorRange = 0.35
+steps = 4000
 
 amplitude = np.pi/4
 phaseOffset = np.pi/32
