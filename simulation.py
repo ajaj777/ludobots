@@ -5,6 +5,7 @@ import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import constants as c
 import time as time
+import os
 
 class SIMULATION:
     def __init__(self, directOrGUI, solutionID):
@@ -17,10 +18,18 @@ class SIMULATION:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
         self.world = WORLD()
-        self.robot = ROBOT(self.solutionID)
+        # replace single robot with swarm of robots
+        self.swarm = {}
+        self.total_bots = c.numBots[0] * c.numBots[1]
+        for bodyIndex in range(self.total_bots):
+            self.swarm[bodyIndex] = ROBOT(self.solutionID,bodyIndex)
+        #os.system(f'rm brain{self.solutionID}.nndf')
+
         #pyrosim.Prepare_To_Simulate(self.robot.robotID)
 
     def Run(self):
+        print("REACHED RUN")
+        exit()
         for i in range(c.steps):
             p.stepSimulation()
             self.robot.Sense(i)
@@ -31,6 +40,7 @@ class SIMULATION:
             #time.sleep(1/240)
 
     def Get_Fitness(self):
+        # modify to maximize number of octapods that escape certain x/y box (i.e. where the enclosure walls are)
         self.robot.Get_Fitness()
 
     def __del__(self):
