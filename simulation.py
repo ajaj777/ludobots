@@ -28,20 +28,31 @@ class SIMULATION:
         #pyrosim.Prepare_To_Simulate(self.robot.robotID)
 
     def Run(self):
-        print("REACHED RUN")
-        exit()
+        #print("REACHED RUN")
+        #exit()
+
         for i in range(c.steps):
             p.stepSimulation()
-            self.robot.Sense(i)
-            self.robot.Think()
-            self.robot.Act(i)
+            for robot in self.swarm:
+                self.swarm[robot].Sense(i)
+                self.swarm[robot].Think()
+                self.swarm[robot].Act(i)
+            
             if self.directOrGUI != "DIRECT":
                 time.sleep(1/240)
             #time.sleep(1/240)
 
     def Get_Fitness(self):
         # modify to maximize number of octapods that escape certain x/y box (i.e. where the enclosure walls are)
-        self.robot.Get_Fitness()
+        # this is where a file is written to.
+        fitness = 0.0
+        for robot in self.swarm:
+            fitness += self.swarm[robot].Get_Fitness()
+
+        with open(f'tmp{self.solutionID}.txt','w') as file:
+            file.write(str(fitness))
+
+        os.system(f'mv tmp{self.solutionID}.txt fitness{self.solutionID}.txt')
 
     def __del__(self):
 

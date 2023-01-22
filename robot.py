@@ -51,11 +51,13 @@ class ROBOT:
                 #print(neuronName + ' ' + jointName + ' ' + str(desiredAngle))
 
     def Get_Fitness(self):
+        # modify to be 1 or 0 depending on if this robot is outside of the enclosure walls
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         basePosition = basePositionAndOrientation[0]
         xPosition = basePosition[0]
-        
-        with open(f'tmp{self.solutionID}.txt','w') as file:
-            file.write(str(xPosition))
-
-        os.system(f'mv tmp{self.solutionID}.txt fitness{self.solutionID}.txt')
+        fitness = 0
+        if xPosition > 3:
+            fitness = 1.0
+        else:
+            fitness = 0.0
+        return fitness
