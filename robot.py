@@ -47,13 +47,13 @@ class ROBOT:
                 #print(neuronName + ' ' + jointName + ' ' + str(desiredAngle))
 
     def Get_Fitness(self):
-        stateOfLinkZero =  p.getLinkState(self.robot,0)
-       # print(stateOfLinkZero)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0]
-        print(xCoordinateOfLinkZero)
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+
+        basePosition = basePositionAndOrientation[0]
+
+        xPosition = basePosition[0]
         
         with open(f'tmp{self.solutionID}.txt','w') as file:
-            file.write(str(xCoordinateOfLinkZero))
+            file.write(str(xPosition))
 
         os.system(f'mv tmp{self.solutionID}.txt fitness{self.solutionID}.txt')

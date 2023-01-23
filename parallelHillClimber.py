@@ -59,6 +59,7 @@ class PARALLEL_HILL_CLIMBER():
         for parent in self.parents:
             if self.parents[parent].fitness < best:
                 bestParent = self.parents[parent]
+                best = bestParent.fitness
         bestParent.Start_Simulation('GUI')
         
         

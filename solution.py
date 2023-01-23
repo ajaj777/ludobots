@@ -8,7 +8,7 @@ import time
 class SOLUTION():
     def __init__(self, id):
         self.myID = id
-        self.weights = np.random.rand(c.numSensorNeurons,c.numMotorNeurons) * 2 - 1
+        self.weights = np.random.rand(len(c.sensorNeurons),len(c.motorNeurons)) * 2 - 1
 
     def Set_ID(self, id):
         self.myID = id
@@ -32,8 +32,8 @@ class SOLUTION():
         os.system('rm ' + fitnessFileName)
 
     def Mutate(self):
-        randomRow = random.randint(0,c.numSensorNeurons-1)
-        randomColumn = random.randint(0,c.numMotorNeurons-1)
+        randomRow = random.randint(0,len(c.sensorNeurons)-1)
+        randomColumn = random.randint(0,len(c.motorNeurons)-1)
         self.weights[randomRow][randomColumn] = random.random() * 2 - 1
 
     def Generate(self):
@@ -82,8 +82,8 @@ class SOLUTION():
         # pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
         # pyrosim.Send_Motor_Neuron( name = 3 , jointName = "Torso_BackLeg")
         # pyrosim.Send_Motor_Neuron( name = 4 , jointName = "Torso_FrontLeg")
-        for currentRow in range(c.numSensorNeurons):
-            for currentColumn in range(c.numMotorNeurons):
+        for currentRow in range(len(c.sensorNeurons)):
+            for currentColumn in range(len(c.motorNeurons)):
                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + len(c.sensorNeurons) , weight = self.weights[currentRow][currentColumn])
         pyrosim.End()
         
