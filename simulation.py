@@ -15,6 +15,8 @@ class SIMULATION:
             self.physicsClient = p.connect(p.DIRECT)
         else:
             self.physicsClient = p.connect(p.GUI)
+        #zoom out camera view
+        p.resetDebugVisualizerCamera(cameraDistance = 20, cameraYaw = 0.0, cameraPitch = -45.0, cameraTargetPosition=[0,0,0])
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
         self.world = WORLD()

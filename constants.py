@@ -1,7 +1,7 @@
 import numpy as np
 
 # initial position of an octapod
-initialPos = [-3,-3,1]
+initialPos = [-5,-5,1]
 # number of bots to go in the respective x and y directions (in a square formation with some offset)
 numBots = [1,1] 
 
@@ -21,7 +21,7 @@ numberOfGenerations = 1
 # numMotorNeurons = 3
 
 motorRange = 0.5
-steps = 10000
+steps = 1000
 
 amplitude = np.pi/4
 phaseOffset = np.pi/32
