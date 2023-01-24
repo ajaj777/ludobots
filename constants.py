@@ -1,9 +1,17 @@
 import numpy as np
+import math
+
+# enclosure bottomleft
+enclosureStart = [-10,-2]
+# enclosure size
+enclosureLength = 2
+#enclosure box dims
+enclosureBoxDims = [1,1,2]
+# number of bots to go in the respective x and y directions (in a square formation with some offset)
+numBots = [2,2] 
 
 # initial position of an octapod
-initialPos = [-5,-5,1]
-# number of bots to go in the respective x and y directions (in a square formation with some offset)
-numBots = [1,1] 
+initialPos = [0,0,3]
 
 # dimensions (length, width height) of an octapod torso
 dimsTorso = [0.75,0.75,0.4]
@@ -20,7 +28,7 @@ numberOfGenerations = 1
 # numSensorNeurons = 4
 # numMotorNeurons = 3
 
-motorRange = 0.5
+motorRange = np.pi / 4
 steps = 1000
 
 amplitude = np.pi/4

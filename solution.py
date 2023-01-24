@@ -44,9 +44,10 @@ class SOLUTION():
         self.Create_Brain()
 
     def Create_Swarm(self):
-        currentTorsoPos = c.initialPos # initial position [x,y,z] of torso of an octapod
+        #currentTorsoPos = c.initialPos # initial position [x,y,z] of torso of an octapod
         for i in range(c.numBots[0]):
             for j in range(c.numBots[1]):
+                currentTorsoPos = [c.initialPos[0] + 2*i, c.initialPos[1] + 2*j, c.initialPos[2]]
                 bIndex = c.numBots[0] * i + j
                 self.Create_Body(bIndex,initPos=currentTorsoPos)
 
@@ -79,8 +80,11 @@ class SOLUTION():
             pyrosim.Send_Joint( name = "BottomLeg_BottomLowerLeg" , parent= "BottomLeg" , child = "BottomLowerLeg" , type = "revolute", position = [0, 0, -dt[2]*2], jointAxis='0 1 0')
             pyrosim.Send_Cube(name="BottomLowerLeg", pos=[0.0,0.0,-dt[2]*0.75] , size=[dt[0]/4,dt[1]/4,dt[2]*1.5])
 
-            pyrosim.Send_Joint( name = "TopLeg_TopUpperLeg" , parent= "TopLeg" , child = "TopUpperLeg" , type = "revolute", position = [0, 0, dt[2]*2], jointAxis='0 1 0')
+            pyrosim.Send_Joint( name = "TopLeg_TopUpperLeg" , parent= "TopLeg" , child = "TopUpperLeg" , type = "revolute", position = [0, dt[1],0], jointAxis='0 1 0')
             pyrosim.Send_Cube(name="TopUpperLeg", pos=[0.0,0.0,dt[2]*0.75] , size=[dt[0]/4,dt[1]/4,dt[2]*1.5])
+
+            pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg" , child = "FrontLowerLeg" , type = "revolute", position = [0, dt[1], 0], jointAxis='1 0 0')
+            pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0.0,0.0,-dt[2]/1.5] , size=[dt[0]/3,dt[1],dt[2]/3])
 
             pyrosim.End()
             
@@ -103,5 +107,14 @@ class SOLUTION():
     def Create_World(self):
         # create an enclosure for the octapod swarm to escape from
         pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name="Box", pos=[-2,2,c.z] , size=[c.length,c.width,c.height])
+        #test cube (root link)
+        pyrosim.Send_Cube(name="Box", pos=[-100,-100,1] , size=[c.length,c.width,c.height])
+
+        length = c.enclosureBoxDims[0]
+        width = c.enclosureBoxDims[1]
+        height = c.enclosureBoxDims[2]
+
+        for i in range(c.enclosureLength):
+            pyrosim.Send_Cube(name=f"Box{i}", pos=[c.enclosureStart[0] + c.enclosureBoxDims[0] * i,
+                                               c.enclosureStart[1], c.enclosureBoxDims[2] / 2] , size=[length,width,height])
         pyrosim.End()
