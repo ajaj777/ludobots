@@ -80,11 +80,11 @@ class SOLUTION():
             pyrosim.Send_Joint( name = "BottomLeg_BottomLowerLeg" , parent= "BottomLeg" , child = "BottomLowerLeg" , type = "revolute", position = [0, 0, -dt[2]*2], jointAxis='0 1 0')
             pyrosim.Send_Cube(name="BottomLowerLeg", pos=[0.0,0.0,-dt[2]*0.75] , size=[dt[0]/4,dt[1]/4,dt[2]*1.5])
 
-            pyrosim.Send_Joint( name = "TopLeg_TopUpperLeg" , parent= "TopLeg" , child = "TopUpperLeg" , type = "revolute", position = [0, dt[1],0], jointAxis='0 1 0')
-            pyrosim.Send_Cube(name="TopUpperLeg", pos=[0.0,0.0,dt[2]*0.75] , size=[dt[0]/4,dt[1]/4,dt[2]*1.5])
+            # pyrosim.Send_Joint( name = "TopLeg_TopUpperLeg" , parent= "TopLeg" , child = "TopUpperLeg" , type = "revolute", position = [0, dt[1],0], jointAxis='0 1 0')
+            # pyrosim.Send_Cube(name="TopUpperLeg", pos=[0.0,0.0,dt[2]*0.75] , size=[dt[0]/4,dt[1]/4,dt[2]*1.5])
 
-            pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg" , child = "FrontLowerLeg" , type = "revolute", position = [0, dt[1], 0], jointAxis='1 0 0')
-            pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0.0,0.0,-dt[2]/1.5] , size=[dt[0]/3,dt[1],dt[2]/3])
+            # pyrosim.Send_Joint( name = "FrontLeg_FrontLowerLeg" , parent= "FrontLeg" , child = "FrontLowerLeg" , type = "revolute", position = [0, dt[1], 0], jointAxis='1 0 0')
+            # pyrosim.Send_Cube(name="FrontLowerLeg", pos=[0.0,0.0,-dt[2]/1.5] , size=[dt[0]/3,dt[1],dt[2]/3])
 
             pyrosim.End()
             

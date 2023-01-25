@@ -54,10 +54,6 @@ class ROBOT:
         # modify to be 1 or 0 depending on if this robot is outside of the enclosure walls
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         basePosition = basePositionAndOrientation[0]
-        yPosition = basePosition[1]
-        fitness = 0
-        if yPosition < c.enclosureStart[1]-c.enclosureBoxDims[1]/2:
-            fitness = 1.0
-        else:
-            fitness = 0.0
+        zPosition = basePosition[2]
+        fitness = zPosition
         return fitness

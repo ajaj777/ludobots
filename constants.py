@@ -8,7 +8,7 @@ enclosureLength = 2
 #enclosure box dims
 enclosureBoxDims = [1,1,2]
 # number of bots to go in the respective x and y directions (in a square formation with some offset)
-numBots = [2,2] 
+numBots = [3,3] 
 
 # initial position of an octapod
 initialPos = [0,0,3]
@@ -19,11 +19,11 @@ dimsTorso = [0.75,0.75,0.4]
 # sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg","FrontLowerLeg","BackLowerLeg","LeftLowerLeg","RightLowerLeg"]
 # motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg","FrontLeg_FrontLowerLeg","BackLeg_BackLowerLeg","LeftLeg_LeftLowerLeg","RightLeg_RightLowerLeg"]
 
-sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg","TopLeg", "BottomLeg", "BottomLowerLeg", "TopUpperLeg"]
-motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg","Torso_TopLeg","Torso_BottomLeg", "BottomLeg_BottomLowerLeg","TopLeg_TopUpperLeg"]
+sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg","TopLeg", "BottomLeg", "BottomLowerLeg"]
+motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg","Torso_TopLeg","Torso_BottomLeg","BottomLeg_BottomLowerLeg"]
 
-populationSize = 1
-numberOfGenerations = 1
+populationSize = 10
+numberOfGenerations = 10
 
 # numSensorNeurons = 4
 # numMotorNeurons = 3
