@@ -3,6 +3,7 @@ import constants as c
 import copy
 import os
 import math
+from datetime import datetime
 
 class PARALLEL_HILL_CLIMBER():
     def __init__(self):
@@ -48,18 +49,26 @@ class PARALLEL_HILL_CLIMBER():
             self.children[child].Mutate()
 
     def Select(self):
-        # parent does worse because we want negative values
+        
         for parent in self.parents:
-            if self.parents[parent].fitness > self.children[parent].fitness:
+            if self.parents[parent].fitness < self.children[parent].fitness:
+                
                 self.parents[parent] = self.children[parent]
+               
 
     def Show_Best(self):
-        best = math.inf
+        best = -math.inf
         bestParent = None
         for parent in self.parents:
-            if self.parents[parent].fitness < best:
+            if self.parents[parent].fitness > best:
                 bestParent = self.parents[parent]
                 best = bestParent.fitness
+        bid = bestParent.Get_ID()
+        bestParent.Create_Brain()
+        now = str(datetime.now().strftime("%H:%M:%S"))
+        
+        os.system(f'mv brain{bid}.nndf bestBrain{now}.nndf')
+        os.system(f'rm brain*.nndf')
         bestParent.Start_Simulation('GUI')
         
         

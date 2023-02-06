@@ -5,14 +5,14 @@ import numpy as np
 # sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg","FrontLowerLeg","BackLowerLeg","LeftLowerLeg","RightLowerLeg"]
 # motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg","FrontLeg_FrontLowerLeg","BackLeg_BackLowerLeg","LeftLeg_LeftLowerLeg","RightLeg_RightLowerLeg"]
 
-sensorNeurons = ["Torso","LeftLeg","RightLeg"]
-motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg"]
+sensorNeurons = ["Torso","LeftLeg","RightLeg","LowerLeftLeg","LowerRightLeg","LeftFoot","RightFoot","LeftArm","RightArm","LowerLeftArm","LowerRightArm"]
+motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg","Torso_LowerLeftLeg","Torso_LowerRightLeg","LowerLeftLeg_LeftFoot","LowerRightLeg_RightFoot","Torso_LeftArm","Torso_RightArm","LeftArm_LowerLeftArm","RightArm_LowerRightArm"]
 
 populationSize = 1
 numberOfGenerations = 1
 
 
-steps = 10000
+steps = 5000
 
 amplitude = np.pi/4
 phaseOffset = np.pi/32
@@ -27,12 +27,16 @@ lw = 0.1
 ll = 0.1
 
 fh = 0.1
-fw = 0.025
-fl = 0.05
+fw = 0.75
+fl = 0.3
+
+ah = 0.25
+aw = 0.25
+al = lh + 0.2
 
 x = 0
 y  = 0
-z = height/2 + lh
+z = height/2 + 2 * lh + fh
 
 llx = x - 0.25 * width - 0.5 * lw
 lly = y

@@ -26,6 +26,7 @@ class SIMULATION:
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
+            self.robot.Record_Fitness(i)
             if self.directOrGUI != "DIRECT":
                 time.sleep(1/240)
             #time.sleep(1/240)
