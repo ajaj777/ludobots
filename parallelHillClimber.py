@@ -30,19 +30,21 @@ class PARALLEL_HILL_CLIMBER():
         self.Evaluate(self.parents)
         low = -math.inf
         fitness_list = []
+        positives = []
         for parent in self.parents:
             fitness_list.append(self.parents[parent].fitness)
-            low = min(fitness_list)
+            positives = [x for x in fitness_list if x > 0]
+        
         attempts = 0
-        while low <= -999999 and attempts < 100:
+        while len(positives) < 3:
             print("\n\nRegenerating first generation...\n\n")
             os.system('rm brain*.nndf')
             os.system('rm fitness*.txt')
-            print("Fitnesses: ", fitness_list)
+            print("Positive fitnesses: ", positives)
             reg_count = 0
             for parent in self.parents:
                 
-                if self.parents[parent].fitness <= -999999:
+                if self.parents[parent].fitness < 0:
                     self.parents[parent] = SOLUTION(self.nextAvailableID)
                     self.nextAvailableID += 1
                     reg_count += 1
@@ -52,9 +54,16 @@ class PARALLEL_HILL_CLIMBER():
             fitness_list = []
             for parent in self.parents:
                 fitness_list.append(self.parents[parent].fitness)
-                low = min(fitness_list)
+                positives = [x for x in fitness_list if x > 0]
 
             attempts += 1
+        
+        final = {}
+        for parent in self.parents:
+            if self.parents[parent].fitness > 0:
+                final[parent] = self.parents[parent]
+
+        self.parents = final
         
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
@@ -101,7 +110,12 @@ class PARALLEL_HILL_CLIMBER():
         os.system(f'mv brain{bid}.nndf bestBrain{now}.nndf')
         os.system(f'rm brain*.nndf')
         # need to save np weights into a file
-        np_filename = f'bestWeights{now}.npy'
+        good_threshold = 1
+        label = 'normal'
+        if bestParent.fitness > good_threshold:
+            label = 'good'
+
+        np_filename = f'bestWeights{now}_{label}.npy'
         np.save(np_filename, bestParent.weights)
         bestParent.Start_Simulation('GUI')
         

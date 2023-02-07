@@ -25,7 +25,7 @@ class ROBOT:
         self.Prepare_To_Act()
         self.position_data = np.ndarray((c.steps,3))
         self.z_threshold_count = 0
-        self.z_threshold = 1.5
+        self.z_threshold = 1.2
         #os.system(f'rm brain{self.solutionID}.nndf')
 
     def Prepare_To_Sense(self):
@@ -72,12 +72,16 @@ class ROBOT:
 
         basePosition = basePositionAndOrientation[0]
 
+        means = np.mean(self.position_data,1)
+        z_mean = means[2]
         z_fraction = self.z_threshold_count / c.steps
         fitness = 0
+        multiplier = 1
         if z_fraction < 1:
-            fitness = -1000000
+            fitness = -100
+        #fitness = abs(basePosition[0]) * (z_mean**5) * multiplier
         else:
-            fitness = abs(basePosition[0]) * (basePosition[2]**5)
+            fitness = (z_mean**3) * abs(basePosition[0])*0.1
         with open(f'tmp{self.solutionID}.txt','w') as file:
             file.write(str(fitness))
 

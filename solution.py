@@ -60,7 +60,7 @@ class SOLUTION():
             pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , type = "revolute", position = [0,-0.25,2*c.lh + c.fh], jointAxis='0 1 0')
             pyrosim.Send_Cube(name="LeftLeg", pos=[0,0,-c.lh/2] , size=[0.2,0.2,c.lh])
 
-            pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0,0.25,2*c.lh], jointAxis='0 1 0')
+            pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , type = "revolute", position = [0,0.25,2*c.lh + c.fh], jointAxis='0 1 0')
             pyrosim.Send_Cube(name="RightLeg", pos=[0,0,-c.lh/2] , size=[0.2,0.2,c.lh])
 
             pyrosim.Send_Joint( name = "Torso_LowerLeftLeg" , parent= "LeftLeg" , child = "LowerLeftLeg" , type = "revolute", position = [0.0,0.0,-c.lh], jointAxis='0 1 0')
