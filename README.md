@@ -18,3 +18,13 @@ fitness = (z_mean)^5 * (x_distance_traveled * 0.1)
 where 'z_mean' is the average z_value across all simulation steps of the robot's torso, and 'x_distance_traveled' is the total *absolute* value of the ending X coordinate value of the robot's torso. 
 
 Fascinatingly, z_thresholds set too high result in it being nearly impossible to evolve a robot to adopt natural, bipedal movement. However, setting to 1.2 (other values were also tested in this neighborhood) seems to be generous enough to allow robots to evolve in a reasonable amount of computation (though still taking ~30+ minutes), while also somewhat satisfying the goal of 'remain upright' and 'travel as far as possible'. The final evolved creature from my simulations relied heavily on its arms (sort of like a gorilla) to move, rather than walking as a human might. 
+
+HOW TO REPLICATE:
+
+python3 show.py bestWeights23:36:15_normal
+
+This command will first run a random, first-gen simulation, followed by the final evolved form. 
+
+python3 search.py
+
+This command will redo evolution. (Be aware, it carries out the process described above and will take over 30 minutes).
