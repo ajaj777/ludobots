@@ -134,7 +134,8 @@ def Send_Cube(name="default",pos=[0,0,0],size=[1,1,1]):
 
     availableLinkIndex = availableLinkIndex + 1
 
-def Send_Joint(name,parent,child,type,position, jointAxis):
+# added optional 'limitations' to reduce range of movement for spherical joints when desired
+def Send_Joint(name,parent,child,type,position, jointAxis, limitations=None):
 
     joint = JOINT(name,parent,child,type,position)
 
@@ -155,17 +156,34 @@ def Send_Synapse( sourceNeuronName , targetNeuronName , weight ):
  
 def Set_Motor_For_Joint(bodyIndex,jointName,controlMode,targetPosition,maxForce):
 
-    p.setJointMotorControl2(
+        p.setJointMotorControl2(
 
-        bodyIndex      = bodyIndex,
+            bodyIndex      = bodyIndex,
 
-        jointIndex     = jointNamesToIndices[jointName],
+            jointIndex     = jointNamesToIndices[jointName],
 
-        controlMode    = controlMode,
+            controlMode    = controlMode,
 
-        targetPosition = targetPosition,
+            targetPosition = targetPosition,
 
-        force          = maxForce)
+            force          = maxForce)
+
+# added this function.
+# targetPositions = list of 3 floats
+# maxForces = list of 3 floats
+
+def Set_Motor_For_Spherical_Joint(bodyIndex,jointName,controlMode,targetPositions,maxForces):
+        p.setJointMotorControlMultiDof(
+                bodyIndex      = bodyIndex,
+
+                jointIndex     = jointNamesToIndices[jointName],
+
+                controlMode    = controlMode,
+
+                targetPosition = targetPositions,
+
+                force          = maxForces)
+
 
 def Start_NeuralNetwork(filename):
 

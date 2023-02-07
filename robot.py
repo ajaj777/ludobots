@@ -8,31 +8,41 @@ import os
 import time
 import numpy as np
 import constants as c
+import math
+
 class ROBOT:
-    def __init__(self,solutionID):
+    def __init__(self,solutionID,filename=None):
         self.solutionID = solutionID
         self.motors = {}
-        self.nn = NEURAL_NETWORK(f"brain{self.solutionID}.nndf")
+        self.nn = None
+        if filename:
+            self.nn = NEURAL_NETWORK(filename)
+        else:
+            self.nn = NEURAL_NETWORK(f"brain{self.solutionID}.nndf")
         self.robot = p.loadURDF("body.urdf")
         pyrosim.Prepare_To_Simulate(self.robot)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.position_data = np.ndarray((c.steps,3))
         self.z_threshold_count = 0
-        self.z_threshold = 2 * c.lh + c.fh + 0.25 * c.height
+        self.z_threshold = 1.5
         #os.system(f'rm brain{self.solutionID}.nndf')
 
     def Prepare_To_Sense(self):
         self.sensors = {}
         for linkName in pyrosim.linkNamesToIndices:
             self.sensors[linkName] = SENSOR(linkName)
+       
 
     def Prepare_To_Act(self):
         self.motors = {}
         for jointName in pyrosim.jointNamesToIndices:
            # print(jointName)
-            self.motors[jointName] = MOTOR(jointName)
-
+            index = pyrosim.jointNamesToIndices[jointName]
+            jointType = p.getJointInfo(self.robot,index)[2]
+            self.motors[jointName] = MOTOR(jointName, jointType)
+           
+            
     def Sense(self,t):
         for sensor in self.sensors:
             self.sensors[sensor].Get_Value(t)
@@ -63,7 +73,11 @@ class ROBOT:
         basePosition = basePositionAndOrientation[0]
 
         z_fraction = self.z_threshold_count / c.steps
-        fitness = (z_fraction**2) * basePosition[0] * (basePosition[2]**2)
+        fitness = 0
+        if z_fraction < 1:
+            fitness = -1000000
+        else:
+            fitness = abs(basePosition[0]) * (basePosition[2]**5)
         with open(f'tmp{self.solutionID}.txt','w') as file:
             file.write(str(fitness))
 

@@ -4,16 +4,20 @@ import copy
 import os
 import math
 from datetime import datetime
+import numpy as np
 
 class PARALLEL_HILL_CLIMBER():
-    def __init__(self):
+    def __init__(self, filename=None):
         os.system('rm brain*.nndf')
         os.system('rm fitness*.txt')
 
         self.parents = {}
         self.nextAvailableID = 0
         for i in range(c.populationSize):
-            self.parents[i] = SOLUTION(self.nextAvailableID)
+            if filename:
+                self.parents[i] = SOLUTION(self.nextAvailableID,filename=filename)
+            else:
+                self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID+=1
         
     def Evaluate(self, solutions):
@@ -24,7 +28,33 @@ class PARALLEL_HILL_CLIMBER():
 
     def Evolve(self):
         self.Evaluate(self.parents)
-        
+        low = -math.inf
+        fitness_list = []
+        for parent in self.parents:
+            fitness_list.append(self.parents[parent].fitness)
+            low = min(fitness_list)
+        attempts = 0
+        while low <= -999999 and attempts < 100:
+            print("\n\nRegenerating first generation...\n\n")
+            os.system('rm brain*.nndf')
+            os.system('rm fitness*.txt')
+            print("Fitnesses: ", fitness_list)
+            reg_count = 0
+            for parent in self.parents:
+                
+                if self.parents[parent].fitness <= -999999:
+                    self.parents[parent] = SOLUTION(self.nextAvailableID)
+                    self.nextAvailableID += 1
+                    reg_count += 1
+
+            print(f"Regen {reg_count} parents.")
+            self.Evaluate(self.parents)
+            fitness_list = []
+            for parent in self.parents:
+                fitness_list.append(self.parents[parent].fitness)
+                low = min(fitness_list)
+
+            attempts += 1
         
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()
@@ -67,8 +97,12 @@ class PARALLEL_HILL_CLIMBER():
         bestParent.Create_Brain()
         now = str(datetime.now().strftime("%H:%M:%S"))
         
+
         os.system(f'mv brain{bid}.nndf bestBrain{now}.nndf')
         os.system(f'rm brain*.nndf')
+        # need to save np weights into a file
+        np_filename = f'bestWeights{now}.npy'
+        np.save(np_filename, bestParent.weights)
         bestParent.Start_Simulation('GUI')
         
         

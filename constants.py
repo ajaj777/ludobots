@@ -5,11 +5,11 @@ import numpy as np
 # sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg","FrontLowerLeg","BackLowerLeg","LeftLowerLeg","RightLowerLeg"]
 # motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg","FrontLeg_FrontLowerLeg","BackLeg_BackLowerLeg","LeftLeg_LeftLowerLeg","RightLeg_RightLowerLeg"]
 
-sensorNeurons = ["Torso","LeftLeg","RightLeg","LowerLeftLeg","LowerRightLeg","LeftFoot","RightFoot","LeftArm","RightArm","LowerLeftArm","LowerRightArm"]
-motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg","Torso_LowerLeftLeg","Torso_LowerRightLeg","LowerLeftLeg_LeftFoot","LowerRightLeg_RightFoot","Torso_LeftArm","Torso_RightArm","LeftArm_LowerLeftArm","RightArm_LowerRightArm"]
+sensorNeurons = ["Torso","LeftLeg","RightLeg","LowerLeftLeg","LowerRightLeg","LeftFoot","RightFoot","LeftArmX","LeftArmZ","RightArmX","RightArmZ","LowerLeftArm","LowerRightArm"]
+motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg","Torso_LowerLeftLeg","Torso_LowerRightLeg","LowerLeftLeg_LeftFoot","LowerRightLeg_RightFoot","Torso_LeftArmX","LeftArmX_LeftArmZ","Torso_RightArmX","RightArmX_RightArmZ","LeftArmZ_LowerLeftArm","RightArmZ_LowerRightArm"]
 
-populationSize = 1
-numberOfGenerations = 1
+populationSize = 25
+numberOfGenerations = 50 
 
 
 steps = 5000

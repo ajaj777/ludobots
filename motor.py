@@ -5,8 +5,9 @@ import pybullet as p
 import pybullet_data
 
 class MOTOR:
-    def __init__(self, jointName):
+    def __init__(self, jointName, jointType):
         self.jointName = jointName
+        self.jointType = jointType
         #self.Prepare_To_Act()
 
     # def Prepare_To_Act(self):

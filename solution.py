@@ -6,9 +6,12 @@ import random
 import time
 
 class SOLUTION():
-    def __init__(self, id):
+    def __init__(self, id, filename=None):
         self.myID = id
-        self.weights = np.random.rand(len(c.sensorNeurons),len(c.motorNeurons)) * 2 - 1
+        if filename:
+            self.weights = np.load(f'{filename}.npy')
+        else:
+            self.weights = np.random.rand(len(c.sensorNeurons),len(c.motorNeurons)) * 2 - 1
 
     def Set_ID(self, id):
         self.myID = id
@@ -25,15 +28,21 @@ class SOLUTION():
        
     def Wait_For_Simulation_To_End(self):
         fitnessFileName = 'fitness' + str(self.myID) + '.txt'
+        timeStepsElapsed = 0
         while not os.path.exists(fitnessFileName):
             time.sleep(0.01)
+            timeStepsElapsed += 1.0
+            if timeStepsElapsed > 100 * 120:
+                print(f"killing process. waiting for fitness file: {fitnessFileName}") 
+                self.fitness = -420000
+                return
         with open(fitnessFileName,'r') as file:
             lines = file.readlines()
             self.fitness = float(lines[0])
        # print(self.fitness)
         os.system('rm ' + fitnessFileName)
         os.system(f'rm brain{self.myID}.nndf')
-        
+
     def Mutate(self):
         randomRow = random.randint(0,len(c.sensorNeurons)-1)
         randomColumn = random.randint(0,len(c.motorNeurons)-1)
@@ -69,17 +78,21 @@ class SOLUTION():
             pyrosim.Send_Cube(name="RightFoot", pos=[0.0,0.0,-c.fh/2] , size=[c.fw,c.fl,c.fh])
 
             # add arms 
+            # URDF does not directly support spherical joints, so we can create 3 revolute joints along the proper axes of movement
+            pyrosim.Send_Joint( name = "Torso_LeftArmX" , parent= "Torso" , child = "LeftArmX" , type = "revolute", position = [0.0,-c.width/2, c.z + 0.1], jointAxis='1 0 0')
+            pyrosim.Send_Cube(name="LeftArmX", pos=[0.0,-c.al/2,0.0] , size=[0,0,0])
+            pyrosim.Send_Joint( name = "LeftArmX_LeftArmZ" , parent= "LeftArmX" , child = "LeftArmZ" , type = "revolute", position = [0.0,0.0,0.0], jointAxis='0 0 1')
+            pyrosim.Send_Cube(name="LeftArmZ", pos=[0.0,-c.al/2,0.0] , size=[c.aw,c.al,c.ah])
 
-            pyrosim.Send_Joint( name = "Torso_LeftArm" , parent= "Torso" , child = "LeftArm" , type = "revolute", position = [0.0,-c.width/2, c.z + 0.1], jointAxis='1 0 0')
-            pyrosim.Send_Cube(name="LeftArm", pos=[0.0,-c.al/2,0.0] , size=[c.aw,c.al,c.ah])
+            pyrosim.Send_Joint( name = "Torso_RightArmX" , parent= "Torso" , child = "RightArmX" , type = "revolute", position = [0.0,c.width/2, c.z + 0.1], jointAxis='1 0 0')
+            pyrosim.Send_Cube(name="RightArmX", pos=[0.0,c.al/2,0.0] , size=[0,0,0])
+            pyrosim.Send_Joint( name = "RightArmX_RightArmZ" , parent= "RightArmX" , child = "RightArmZ" , type = "revolute", position = [0.0,0,0], jointAxis='0 0 1')
+            pyrosim.Send_Cube(name="RightArmZ", pos=[0.0,c.al/2,0.0] , size=[c.aw,c.al,c.ah])
 
-            pyrosim.Send_Joint( name = "Torso_RightArm" , parent= "Torso" , child = "RightArm" , type = "revolute", position = [0.0,c.width/2, c.z + 0.1], jointAxis='1 0 0')
-            pyrosim.Send_Cube(name="RightArm", pos=[0.0,c.al/2,0.0] , size=[c.aw,c.al,c.ah])
-
-            pyrosim.Send_Joint( name = "LeftArm_LowerLeftArm" , parent= "LeftArm" , child = "LowerLeftArm" , type = "revolute", position = [0.0,-c.al, 0.0], jointAxis='0 0 1')
+            pyrosim.Send_Joint( name = "LeftArmZ_LowerLeftArm" , parent= "LeftArmZ" , child = "LowerLeftArm" , type = "revolute", position = [0.0,-c.al, 0.0], jointAxis='0 0 1')
             pyrosim.Send_Cube(name="LowerLeftArm", pos=[0.0,-c.al/2,0.0] , size=[c.aw,c.al,c.ah])
 
-            pyrosim.Send_Joint( name = "RightArm_LowerRightArm" , parent= "RightArm" , child = "LowerRightArm" , type = "revolute", position = [0.0,c.al, 0.0], jointAxis='0 0 1')
+            pyrosim.Send_Joint( name = "RightArmZ_LowerRightArm" , parent= "RightArmZ" , child = "LowerRightArm" , type = "revolute", position = [0.0,c.al, 0.0], jointAxis='0 0 1')
             pyrosim.Send_Cube(name="LowerRightArm", pos=[0.0,c.al/2,0.0] , size=[c.aw,c.al,c.ah])
 
             # add 'tray'
