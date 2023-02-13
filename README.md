@@ -1,7 +1,4 @@
-# ludobots
-# ludobots
-
-Assignment 5: (LOCATED IN 'WAITERS' BRANCH)
+# Assignment 5: Evolving Crawling
 
 I created a humanoid, bipedal creature and randomly evolved it to gauge what types of locomotion would allow it to maintain 
 an upright posture while also traveling. The body of the creature contains a torso, two arms, each consisting of two components (where the upper component can rotate along two axes), and two legs each consisting of two components and 'feet'. 
