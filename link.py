@@ -1,13 +1,14 @@
 import numpy as np
-import math
+import random
 
 class Link():
-    def __init__(self, random=1):
+    def __init__(self, name, random=1):
+        self.name = name
         self.random = random
 
 class RectangleLink(Link):
-    def __init__(self,**args):
-        Link.__init__(random=args['random'])
+    def __init__(self,name,random,**args):
+        Link.__init__(self,name, random=random)
         if self.random:
             self.generate()
         else:
@@ -22,7 +23,8 @@ class RectangleLink(Link):
         self.length = dimensions[0][0]
         self.width = dimensions[0][1]
         self.height = dimensions[0][2]
-        self.sensor = math.randint(0,1)
+        self.sensor = random.randint(0,1)
+        self.dims = [self.length, self.width, self.height]
         if self.sensor == 1:
             self.color = 'green'
         else:

@@ -28,42 +28,42 @@ class PARALLEL_HILL_CLIMBER():
 
     def Evolve(self):
         self.Evaluate(self.parents)
-        low = -math.inf
-        fitness_list = []
-        positives = []
-        for parent in self.parents:
-            fitness_list.append(self.parents[parent].fitness)
-            positives = [x for x in fitness_list if x > 0]
+        # low = -math.inf
+        # fitness_list = []
+        # positives = []
+        # for parent in self.parents:
+        #     fitness_list.append(self.parents[parent].fitness)
+        #     positives = [x for x in fitness_list if x > 0]
         
-        attempts = 0
-        while len(positives) < 3:
-            print("\n\nRegenerating first generation...\n\n")
-            os.system('rm brain*.nndf')
-            os.system('rm fitness*.txt')
-            print("Positive fitnesses: ", positives)
-            reg_count = 0
-            for parent in self.parents:
+        # attempts = 0
+        # while len(positives) < 3:
+        #     print("\n\nRegenerating first generation...\n\n")
+        #     os.system('rm brain*.nndf')
+        #     os.system('rm fitness*.txt')
+        #     print("Positive fitnesses: ", positives)
+        #     reg_count = 0
+        #     for parent in self.parents:
                 
-                if self.parents[parent].fitness < 0:
-                    self.parents[parent] = SOLUTION(self.nextAvailableID)
-                    self.nextAvailableID += 1
-                    reg_count += 1
+        #         if self.parents[parent].fitness < 0:
+        #             self.parents[parent] = SOLUTION(self.nextAvailableID)
+        #             self.nextAvailableID += 1
+        #             reg_count += 1
 
-            print(f"Regen {reg_count} parents.")
-            self.Evaluate(self.parents)
-            fitness_list = []
-            for parent in self.parents:
-                fitness_list.append(self.parents[parent].fitness)
-                positives = [x for x in fitness_list if x > 0]
+        #     print(f"Regen {reg_count} parents.")
+        #     self.Evaluate(self.parents)
+        #     fitness_list = []
+        #     for parent in self.parents:
+        #         fitness_list.append(self.parents[parent].fitness)
+        #         positives = [x for x in fitness_list if x > 0]
 
-            attempts += 1
+        #     attempts += 1
         
-        final = {}
-        for parent in self.parents:
-            if self.parents[parent].fitness > 0:
-                final[parent] = self.parents[parent]
+        # final = {}
+        # for parent in self.parents:
+        #     if self.parents[parent].fitness > 0:
+        #         final[parent] = self.parents[parent]
 
-        self.parents = final
+        # self.parents = final
         
         for currentGeneration in range(c.numberOfGenerations):
             self.Evolve_For_One_Generation()

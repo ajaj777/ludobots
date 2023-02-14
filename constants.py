@@ -5,14 +5,17 @@ import numpy as np
 # sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg","FrontLowerLeg","BackLowerLeg","LeftLowerLeg","RightLowerLeg"]
 # motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg","FrontLeg_FrontLowerLeg","BackLeg_BackLowerLeg","LeftLeg_LeftLowerLeg","RightLeg_RightLowerLeg"]
 
+
+jointTypes = []
+
 sensorNeurons = ["Torso","LeftLeg","RightLeg","LowerLeftLeg","LowerRightLeg","LeftFoot","RightFoot","LeftArmX","LeftArmZ","RightArmX","RightArmZ","LowerLeftArm","LowerRightArm"]
 motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg","Torso_LowerLeftLeg","Torso_LowerRightLeg","LowerLeftLeg_LeftFoot","LowerRightLeg_RightFoot","Torso_LeftArmX","LeftArmX_LeftArmZ","Torso_RightArmX","RightArmX_RightArmZ","LeftArmZ_LowerLeftArm","RightArmZ_LowerRightArm"]
 
-populationSize = 50
-numberOfGenerations = 50
+populationSize = 1
+numberOfGenerations = 1
 
 z_threshold = 1.5
-steps = 5000
+steps = 300
 
 amplitude = np.pi/4
 phaseOffset = np.pi/32
