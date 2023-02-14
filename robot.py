@@ -25,7 +25,7 @@ class ROBOT:
         self.Prepare_To_Act()
         self.position_data = np.ndarray((c.steps,3))
         self.z_threshold_count = 0
-        self.z_threshold = 1.2
+        self.z_threshold = c.z_threshold
         #os.system(f'rm brain{self.solutionID}.nndf')
 
     def Prepare_To_Sense(self):

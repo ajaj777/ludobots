@@ -115,6 +115,9 @@ class PARALLEL_HILL_CLIMBER():
         if bestParent.fitness > good_threshold:
             label = 'good'
 
+        if c.z_threshold == 1.5:
+            label = 'OneFive'
+
         np_filename = f'bestWeights{now}_{label}.npy'
         np.save(np_filename, bestParent.weights)
         bestParent.Start_Simulation('GUI')

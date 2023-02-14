@@ -11,7 +11,7 @@ motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg","Torso_LowerLeftLeg","Torso_Lo
 populationSize = 50
 numberOfGenerations = 50
 
-
+z_threshold = 1.5
 steps = 5000
 
 amplitude = np.pi/4
