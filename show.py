@@ -6,6 +6,7 @@ import time
 
 filename = sys.argv[1]
 num = 1
+links = 5
 if len(sys.argv) > 2:
     num = int(sys.argv[2])
 if len(sys.argv) > 3:

@@ -15,7 +15,7 @@ populationSize = 1
 numberOfGenerations = 1
 
 z_threshold = 1.5
-steps = 300
+steps = 2000
 
 amplitude = np.pi/4
 phaseOffset = np.pi/32
