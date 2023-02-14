@@ -7,9 +7,9 @@ import time
 from creature import *
 
 class SOLUTION():
-    def __init__(self, id, filename=None):
+    def __init__(self, id, filename=None, numLinks=10):
         self.myID = id
-        self.creature = RandomCreature(numLinks=2)
+        self.creature = RandomCreature(numLinks=numLinks)
        
        # weights created in create brain function
 
@@ -88,16 +88,16 @@ class SOLUTION():
                             currPos = [0,0,0]
                         pyrosim.Send_Joint(name = jName, parent= cube_chain[i] , child = cube_chain[i+1] , type = joint.type, position = currPos, jointAxis=joint.axes[i])
 
-            pyrosim.Send_Cube(name=links[0].name, pos=[c.x,c.y,self.creature.maxZ / 2] , size=links[0].dims)
+            pyrosim.Send_Cube(name=links[0].name, pos=[c.x,c.y,self.creature.maxZ / 2] , size=links[0].dims, color=links[0].color)
             add_joint(joints[0], [c.x,c.y + links[0].dims[1]/2,self.creature.maxZ/2])
 
             for i in range(1,len(joints)):
                 # now these are all relative
-                pyrosim.Send_Cube(name=links[i].name, pos=[0,links[i].dims[1]/2,0] , size=links[i].dims)
+                pyrosim.Send_Cube(name=links[i].name, pos=[0,links[i].dims[1]/2,0] , size=links[i].dims, color=links[i].color)
                 add_joint(joints[i],[0,links[i].dims[1],0])
                 
                 
-            pyrosim.Send_Cube(name=links[-1].name, pos=[0,links[-1].dims[1]/2,0] , size=links[-1].dims)
+            pyrosim.Send_Cube(name=links[-1].name, pos=[0,links[-1].dims[1]/2,0] , size=links[-1].dims, color=links[-1].color)
 
             pyrosim.End()
             

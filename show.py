@@ -8,6 +8,8 @@ filename = sys.argv[1]
 num = 1
 if len(sys.argv) > 2:
     num = int(sys.argv[2])
+if len(sys.argv) > 3:
+    links = int(sys.argv[3])
 
 def show(filename):
     # rand_soln = SOLUTION(0)
@@ -16,12 +18,12 @@ def show(filename):
     soln = SOLUTION(1, filename=filename)
     soln.Start_Simulation("GUI")
 
-def show_random(num):
+def show_random(num, links):
     for i in range(num):
-        soln = SOLUTION(i)
+        soln = SOLUTION(i,numLinks=links)
         soln.Start_Simulation("GUI",sync=True)
 
 if filename == 'random':
-    show_random(num)
+    show_random(num,links)
 else:
     show(filename)
