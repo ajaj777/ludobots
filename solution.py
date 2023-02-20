@@ -63,6 +63,15 @@ class SOLUTION():
             joints = self.creature.joints
             self.motorNeuronList = []
 
+
+            def next_pos(direction, prev_direction, link_dims):
+                d = direction
+                pd = prev_direction
+                ld = link_dims
+                return [(pd[0]+d[0])*ld[0]/2,
+                        (pd[1]+d[1])*ld[1]/2,
+                        (pd[2]+d[2])*ld[2]/2]
+
             def add_joint(joint, pos):
                 if len(joint.axes) == 1:
                     pyrosim.Send_Joint( name = joint.name, parent= joint.parent.name , child = joint.child.name , type = joint.type, position = pos, jointAxis=joint.axes[0])
@@ -88,16 +97,28 @@ class SOLUTION():
                             currPos = [0,0,0]
                         pyrosim.Send_Joint(name = jName, parent= cube_chain[i] , child = cube_chain[i+1] , type = joint.type, position = currPos, jointAxis=joint.axes[i])
 
-            pyrosim.Send_Cube(name=links[0].name, pos=[c.x,c.y,self.creature.maxZ / 2] , size=links[0].dims, color=links[0].color)
-            add_joint(joints[0], [c.x,c.y + links[0].dims[1]/2,self.creature.maxZ/2])
+           
 
+            dirs = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]]
+
+            pyrosim.Send_Cube(name=links[0].name, pos=[c.x,c.y,self.creature.startZ] , size=links[0].dims, color=links[0].color)
+            d = dirs[random.randint(0,len(dirs)-1)]
+            add_joint(joints[0], [ c.x + d[0] * links[0].dims[0]/2 ,c.y + d[1]*links[0].dims[1]/2, self.creature.startZ + d[2]*links[0].dims[2]/2])
+
+            prev_dir = d
             for i in range(1,len(joints)):
+                # choose among six faces for next link
+                
                 # now these are all relative
-                pyrosim.Send_Cube(name=links[i].name, pos=[0,links[i].dims[1]/2,0] , size=links[i].dims, color=links[i].color)
-                add_joint(joints[i],[0,links[i].dims[1],0])
+                pyrosim.Send_Cube(name=links[i].name, pos=[d[0]*links[i].dims[0]/2,d[1]*links[i].dims[1]/2,d[2]*links[i].dims[2]/2] , size=links[i].dims, color=links[i].color)
+                d = dirs[random.randint(0,len(dirs)-1)]
+                curr_pos = next_pos(d,prev_dir,links[i].dims)
+                prev_dir = d
+                add_joint(joints[i], curr_pos)
                 
                 
-            pyrosim.Send_Cube(name=links[-1].name, pos=[0,links[-1].dims[1]/2,0] , size=links[-1].dims, color=links[-1].color)
+                
+            pyrosim.Send_Cube(name=links[-1].name, pos=[d[0]*links[-1].dims[0]/2,d[1]*links[-1].dims[1]/2,d[2]*links[-1].dims[2]/2] , size=links[-1].dims, color=links[-1].color)
 
             pyrosim.End()
             
