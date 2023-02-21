@@ -59,80 +59,33 @@ class SOLUTION():
     def Create_Body(self):
             pyrosim.Start_URDF("body.urdf")
             
-            links = self.creature.links
-            joints = self.creature.joints
-            self.motorNeuronList = []
+            
+            # pyrosim.Send_Joint( name = joint.name, parent= joint.parent.name , child = joint.child.name , type = joint.type, position = pos, jointAxis=joint.axes[0])
+            # pyrosim.Send_Cube(name=cube, pos=pos , size=[0,0,0])
+            
+            mp = self.creature.master_plan
+            print(mp)
+            curr = mp[0].parent
+            pyrosim.Send_Cube(name=curr.name, pos=curr.position, size=curr.dims, color=curr.color)
 
-
-            def next_pos(direction, prev_direction, link_dims):
-                d = direction
-                pd = prev_direction
-                ld = link_dims
-                return [(pd[0]+d[0])*ld[0]/2,
-                        (pd[1]+d[1])*ld[1]/2,
-                        (pd[2]+d[2])*ld[2]/2]
-
-            def add_joint(joint, pos):
-                if len(joint.axes) == 1:
-                    pyrosim.Send_Joint( name = joint.name, parent= joint.parent.name , child = joint.child.name , type = joint.type, position = pos, jointAxis=joint.axes[0])
-                    self.motorNeuronList.append(joint.name)
-                else:
-                    temp_cubes = [f'{joint.parent.name}{joint.child.name}{x}' for x in range(len(joint.axes)-1)]
-                    for cube in temp_cubes:
-                         pyrosim.Send_Cube(name=cube, pos=pos , size=[0,0,0])
-
-                    cube_chain = []
-                    cube_chain.append(joint.parent.name)
-                    for cube in temp_cubes:
-                        cube_chain.append(cube)
-                    cube_chain.append(joint.child.name)
-
-                    for i in range(len(cube_chain)-1):
-                        jName = f'{cube_chain[i]}_{cube_chain[i+1]}'
-                        self.motorNeuronList.append(jName)
-                        currPos = None
-                        if i==0:
-                            currPos = pos
-                        else:
-                            currPos = [0,0,0]
-                        pyrosim.Send_Joint(name = jName, parent= cube_chain[i] , child = cube_chain[i+1] , type = joint.type, position = currPos, jointAxis=joint.axes[i])
-
-           
-
-            dirs = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]]
-
-            pyrosim.Send_Cube(name=links[0].name, pos=[c.x,c.y,self.creature.startZ] , size=links[0].dims, color=links[0].color)
-            d = dirs[random.randint(0,len(dirs)-1)]
-            add_joint(joints[0], [ c.x + d[0] * links[0].dims[0]/2 ,c.y + d[1]*links[0].dims[1]/2, self.creature.startZ + d[2]*links[0].dims[2]/2])
-
-            prev_dir = d
-            for i in range(1,len(joints)):
-                # choose among six faces for next link
-                
-                # now these are all relative
-                pyrosim.Send_Cube(name=links[i].name, pos=[d[0]*links[i].dims[0]/2,d[1]*links[i].dims[1]/2,d[2]*links[i].dims[2]/2] , size=links[i].dims, color=links[i].color)
-                d = dirs[random.randint(0,len(dirs)-1)]
-                curr_pos = next_pos(d,prev_dir,links[i].dims)
-                prev_dir = d
-                add_joint(joints[i], curr_pos)
-                
-                
-                
-            pyrosim.Send_Cube(name=links[-1].name, pos=[d[0]*links[-1].dims[0]/2,d[1]*links[-1].dims[1]/2,d[2]*links[-1].dims[2]/2] , size=links[-1].dims, color=links[-1].color)
+            for i in range(len(mp)):
+                joint = mp[i]
+                pyrosim.Send_Joint(name = joint.name, parent = joint.parent.name, child=joint.child.name, type=joint.type, position=joint.position, jointAxis=joint.axis)
+                pyrosim.Send_Cube(name = joint.child.name, pos=joint.child.position, size=joint.child.dims, color=joint.child.color)
 
             pyrosim.End()
             
 
     def Create_Brain(self):
         self.numSensorNeurons = self.creature.num_sensors()
-        self.numMotorNeurons = len(self.motorNeuronList)
+        self.numMotorNeurons = len(self.creature.joints)
         self.weights = np.random.rand(self.numSensorNeurons,self.numMotorNeurons) * 2 - 1
 
         pyrosim.Start_NeuralNetwork(f"brain{self.myID}.nndf")
         for i in range(self.numSensorNeurons):
             pyrosim.Send_Sensor_Neuron(name = i , linkName = self.creature.links[i].name)
         for i in range(self.numMotorNeurons):
-            pyrosim.Send_Motor_Neuron(name = i + self.numSensorNeurons, jointName = self.motorNeuronList[i])
+            pyrosim.Send_Motor_Neuron(name = i + self.numSensorNeurons, jointName = self.creature.joints[i].name)
         for currentRow in range(self.numSensorNeurons):
             for currentColumn in range(self.numMotorNeurons):
                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + self.numSensorNeurons , weight = self.weights[currentRow][currentColumn])
