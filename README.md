@@ -10,7 +10,7 @@ Sample images of program output:
 A [gobstopper-like](https://www.google.com/search?q=everlasting+gobstopper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwid27rP8qX9AhUQF2IAHbfhCR8Q_AUoAXoECAEQAw&biw=1920&bih=900&dpr=2) 'bacteria' creature:\
 <img width="520" alt="Screen Shot 2023-02-20 at 11 30 14 PM" src="https://user-images.githubusercontent.com/13933221/220256025-8def2c30-266e-43c4-834a-9bdcf5cc8a7a.png"> 
 
-A 'turtle':\
+A 'turtle':
 
 <img width="416" alt="Screen Shot 2023-02-20 at 11 30 57 PM" src="https://user-images.githubusercontent.com/13933221/220256058-a66e51f8-c6d5-45c6-a2ad-4c49515bf77d.png">
 
