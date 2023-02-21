@@ -12,10 +12,10 @@ sensorNeurons = ["Torso","LeftLeg","RightLeg","LowerLeftLeg","LowerRightLeg","Le
 motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg","Torso_LowerLeftLeg","Torso_LowerRightLeg","LowerLeftLeg_LeftFoot","LowerRightLeg_RightFoot","Torso_LeftArmX","LeftArmX_LeftArmZ","Torso_RightArmX","RightArmX_RightArmZ","LeftArmZ_LowerLeftArm","RightArmZ_LowerRightArm"]
 
 populationSize = 1
-numberOfGenerations = 1
+numberOfGenerations = 10
 
 z_threshold = 1.5
-steps = 5000
+steps = 3000
 
 amplitude = np.pi/4
 phaseOffset = np.pi/32

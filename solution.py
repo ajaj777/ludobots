@@ -64,7 +64,7 @@ class SOLUTION():
             # pyrosim.Send_Cube(name=cube, pos=pos , size=[0,0,0])
             
             mp = self.creature.master_plan
-            print(mp)
+            #print(mp)
             curr = mp[0].parent
             pyrosim.Send_Cube(name=curr.name, pos=curr.position, size=curr.dims, color=curr.color)
 

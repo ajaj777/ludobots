@@ -72,17 +72,8 @@ class ROBOT:
 
         basePosition = basePositionAndOrientation[0]
 
-        means = np.mean(self.position_data,1)
-        z_mean = means[2]
-        z_fraction = self.z_threshold_count / c.steps
-        fitness = 0
-        multiplier = 1
-        if z_fraction < 1:
-            fitness = -100
-        #fitness = abs(basePosition[0]) * (z_mean**5) * multiplier
-        else:
-            fitness = (z_mean**3) * abs(basePosition[0])*0.1
+        x_value = basePosition[0]
         with open(f'tmp{self.solutionID}.txt','w') as file:
-            file.write(str(fitness))
+            file.write(str(x_value))
 
         os.system(f'mv tmp{self.solutionID}.txt fitness{self.solutionID}.txt')

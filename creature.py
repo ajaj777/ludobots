@@ -5,7 +5,7 @@ from joint import *
 import constants as c
 
 class RandomCreature():
-    def __init__(self, dimension=3, numLinks=5, linkTypes=['rectangle'], scale=[0,1]):
+    def __init__(self, dimension=3, numLinks=5, linkTypes=['rectangle'], scale=[0.3,0.3]):
         self.dimension = dimension
         self.numLinks = numLinks
         self.linkTypes = linkTypes
@@ -24,7 +24,7 @@ class RandomCreature():
         for i in range(self.numLinks):
             currType = random.choice(self.linkTypes)
             if currType == 'rectangle':
-                curr = RectangleLink(f'Link{i}',random=1, scale=self.scale)
+                curr = RectangleLink(f'Link{i}',random=1)
                 
                 self.maxZ = curr.height if curr.height > self.maxZ else self.maxZ
                 self.startZ += curr.height
@@ -32,7 +32,7 @@ class RandomCreature():
                 if curr.sensor == 1:
                     self.numSensors += 1
 
-        #self.startZ *= 0.5
+        self.startZ *= 0.5
 
     def generate_joints(self):
         # randomly choose # of axes of rotation, and then:
@@ -67,13 +67,27 @@ class RandomCreature():
             ### finish ###
 
         else:
-            self.add_link_position(self.links[0], [c.x,c.y,self.startZ], [0,0,0])
+            self.links[0].abs_pos = [c.x,c.y,self.startZ]
+            self.add_link_position(None, self.links[0], [c.x,c.y,self.startZ], [0,0,0])
             
+            
+            # def get_volume(link):
+            #     return link.dims[0] * link.dims[1] * link.dims[2]
+            # self.links.sort(key=get_volume)
+            # print([x.name for x in self.links])
             for i in range(1,len(self.links)):
                 # do while loop structure
+                #self.links[i].dims[2] += i*0.01
+                attempts = 0
                 while True:
+                    if attempts > 20:
+                        self.links[i] = RectangleLink(name=f'Link{i}',random=1)
+                    
+
                     rand_link = self.links_with_positions[random.randint(0,len(self.links_with_positions)-1)]
-                    rand_dir = dirs[random.randint(0,len(dirs)-1)]
+                    open_list = rand_link.open_faces
+                    rand_dir = open_list[random.randint(0,len(open_list)-1)]
+                    
                     rd = rand_link.dims
                     pd = rand_link.prev_direction
                     d = rand_dir
@@ -84,15 +98,18 @@ class RandomCreature():
                     link_position = [d[0]*ld[0]/2,
                                      d[1]*ld[1]/2,
                                      d[2]*ld[2]/2]
-                    if self.add_link_position(self.links[i], link_position, rand_dir):
+                    if self.add_link_position(rand_link,self.links[i], link_position, rand_dir,i):
+                        print('Adding link at abs pos: ', self.links[i].abs_pos)
+                        rand_link.open_faces.remove(rand_dir)
+                        self.links[i].open_faces.remove([-x for x in rand_dir])
                         break
                 # will be called len(links)-1 times, as desired
                 # compute position for joint 
                 # refactor this
-                
+                    attempts += 1
                 self.add_joint(i-1,rand_link,self.links[i], jp)
                # self.master_plan.append(self.links[i])
-
+           # print([x.abs_pos for x in self.links_with_positions])
     def add_joint(self,jointIndex,from_link, to_link, position):
         if from_link.prev_direction == [0,0,0]:
             # absolute positions
@@ -118,8 +135,15 @@ class RandomCreature():
                 self.master_plan.append(new_joint)
         
 
-    def add_link_position(self,link,pos,dir):
-        if not self.intersection(pos):
+    def add_link_position(self,from_link,link,pos,dir, i=0):
+        if not from_link:
+            link.prev_direction = dir
+            link.position = pos
+            self.links_with_positions.append(link)
+            return
+        abs_pos = [from_link.abs_pos[i] + from_link.dims[i]/2 + pos[i] for i in range(len(pos))]
+        if not self.intersection(link,abs_pos,i):
+            link.abs_pos = abs_pos
             link.prev_direction = dir
             link.position = pos
             self.links_with_positions.append(link)
@@ -127,9 +151,30 @@ class RandomCreature():
         else:
             return False
 
-    def intersection(self,pos):
-        # check if adding link at this position would intersect an existing link
+    def intersection(self,link,abs_pos,i):
+        td = link.dims
+        proximity_count = 0
+        distances = []
+        def euclidean_distance(p,q):
+             
+            return math.pow((p[0]-q[0])**2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2,
+                                            1/3)
+        for other_link in self.links_with_positions:
+            cp = other_link.abs_pos
+            for i in range(3):
+                curr = euclidean_distance(cp, abs_pos)
+                if curr < max(td):
+                    return True
+                
+                # dim_distances = [abs(cp[i]-abs_pos[i]) for i in range(3)]
+
+                # if min(dim_distances) < 0.1:
+                #     return True
+                distances.append(curr)
+        
+        print(f"adding link, euclidean distance: {min(distances)}")
         return False
+
 
     def mutate(self):
         #randomly remove some number of links, and/or change some of the joints. If joints
