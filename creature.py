@@ -158,7 +158,7 @@ class RandomCreature():
         def euclidean_distance(p,q):
              
             return math.pow((p[0]-q[0])**2 + (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2,
-                                            1/3)
+                                            1/2)
         for other_link in self.links_with_positions:
             cp = other_link.abs_pos
             for i in range(3):
