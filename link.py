@@ -36,7 +36,7 @@ class RectangleLink(Link):
         self.height = dimensions[0][2] * (self.scale[1]-self.scale[0]) + self.scale[0]
         self.sensor = random.randint(0,1)
         self.dims = [self.length, self.width, self.height]
-        print(self.dims)
+        
         if self.sensor == 1:
             self.color = 'green'
         else:

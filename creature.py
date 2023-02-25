@@ -67,27 +67,27 @@ class RandomCreature():
             ### finish ###
 
         else:
+            # startZ is the max height the creature could end up being
             self.links[0].abs_pos = [c.x,c.y,self.startZ]
             self.add_link_position(None, self.links[0], [c.x,c.y,self.startZ], [0,0,0])
             
-            
-            # def get_volume(link):
-            #     return link.dims[0] * link.dims[1] * link.dims[2]
-            # self.links.sort(key=get_volume)
-            # print([x.name for x in self.links])
+
             for i in range(1,len(self.links)):
                 # do while loop structure
                 #self.links[i].dims[2] += i*0.01
                 attempts = 0
+                open_list = []
                 while True:
-                    if attempts > 20:
+                    if attempts > 20 or (not open_list and attempts > 0):
                         self.links[i] = RectangleLink(name=f'Link{i}',random=1)
+                        attempts = 0
                     
-
                     rand_link = self.links_with_positions[random.randint(0,len(self.links_with_positions)-1)]
-                    open_list = rand_link.open_faces
+                    #open_list = rand_link.open_faces
+                    if attempts == 0:
+                        open_list = rand_link.open_faces[:]
                     rand_dir = open_list[random.randint(0,len(open_list)-1)]
-                    
+
                     rd = rand_link.dims
                     pd = rand_link.prev_direction
                     d = rand_dir
@@ -103,13 +103,14 @@ class RandomCreature():
                         rand_link.open_faces.remove(rand_dir)
                         self.links[i].open_faces.remove([-x for x in rand_dir])
                         break
+                    else:
+                        open_list.remove(rand_dir)
                 # will be called len(links)-1 times, as desired
                 # compute position for joint 
                 # refactor this
                     attempts += 1
                 self.add_joint(i-1,rand_link,self.links[i], jp)
-               # self.master_plan.append(self.links[i])
-           # print([x.abs_pos for x in self.links_with_positions])
+               
     def add_joint(self,jointIndex,from_link, to_link, position):
         if from_link.prev_direction == [0,0,0]:
             # absolute positions
@@ -136,12 +137,15 @@ class RandomCreature():
         
 
     def add_link_position(self,from_link,link,pos,dir, i=0):
-        if not from_link:
+        # if this is the root link of the body
+        if not from_link: 
             link.prev_direction = dir
             link.position = pos
             self.links_with_positions.append(link)
             return
-        abs_pos = [from_link.abs_pos[i] + from_link.dims[i]/2 + pos[i] for i in range(len(pos))]
+        # otherwise, we have a from_link
+        # is this calculation even right?
+        abs_pos = [from_link.abs_pos[i] + dir[i]*from_link.dims[i]/2 + pos[i] for i in range(len(pos))]
         if not self.intersection(link,abs_pos,i):
             link.abs_pos = abs_pos
             link.prev_direction = dir
