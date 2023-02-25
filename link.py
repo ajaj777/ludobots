@@ -16,6 +16,7 @@ class RectangleLink(Link):
         if self.random:
             self.generate()
         else:
+            # remove 'self' in front of width,length,height
             self.width = args['width']
             self.length = args['length']
             self.height = args['height']

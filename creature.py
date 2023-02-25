@@ -3,9 +3,10 @@ import random
 from link import *
 from joint import *
 import constants as c
+import copy
 
 class RandomCreature():
-    def __init__(self, dimension=3, numLinks=5, linkTypes=['rectangle'], scale=[0.3,0.3]):
+    def __init__(self, uid=0, dimension=3, numLinks=5, linkTypes=['rectangle'], scale=[0.3,0.3]):
         self.dimension = dimension
         self.numLinks = numLinks
         self.linkTypes = linkTypes
@@ -146,6 +147,9 @@ class RandomCreature():
         # otherwise, we have a from_link
         # is this calculation even right?
         abs_pos = [from_link.abs_pos[i] + dir[i]*from_link.dims[i]/2 + pos[i] for i in range(len(pos))]
+        # print(f"\n ======= \n From link abs pos: {from_link.abs_pos}\n New link abs pos: {abs_pos}\n ======= \n")
+        # print(f"from_link dims: {from_link.dims}")
+        # print(f"new_link dims: {link.dims}")
         if not self.intersection(link,abs_pos,i):
             link.abs_pos = abs_pos
             link.prev_direction = dir
@@ -165,7 +169,7 @@ class RandomCreature():
                                             1/2)
         for other_link in self.links_with_positions:
             cp = other_link.abs_pos
-            for i in range(3):
+            for i in range(3):  
                 curr = euclidean_distance(cp, abs_pos)
                 if curr < max(td):
                     return True
@@ -181,8 +185,37 @@ class RandomCreature():
 
 
     def mutate(self):
-        #randomly remove some number of links, and/or change some of the joints. If joints
-        pass
+        #randomly remove some number of links, and/or change some of the joints.
+        # depending on which joints/links are added/removed, make sure to update num_sensors and num_joints 
+        
+        self.child = copy.deepcopy(self)
+
+        # type of mutation 
+        tm = random.randint(0,2)
+
+        if tm == 0:
+            # change random number of links
+            nl = random.randint(1,3)
+            links = random.sample(self.child.links,k=nl)
+            for link in links:
+                for i in range(3):
+                    link.dims[i] *= random.gauss(mu=link.dims[i], sigma=0.5)
+        elif tm == 1:
+            # change random number of joints
+            joints = random.sample(self.child.joints, k=random.randint(1,5))
+            for joint in joints:
+                jointAxes = ['1 0 0', '0 1 0', '0 0 1']
+                jointAxes.remove(joint.axis)
+                joint.axis = jointAxes[random.randint(0,1)]
+        elif tm == 2:
+            # randomly remove a link
+            to_remove = self.child.links[random.randint(0,len(self.links)-1)]
+            if to_remove.sensor == 1:
+                self.child.num_sensors -= 1
+                self.child.numLinks -= 1
+            self.child.links.remove(to_remove)
+
+        # now we have created a child that is a mutated version of parent
 
     def num_sensors(self):
         return self.numSensors
