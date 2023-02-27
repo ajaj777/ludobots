@@ -20,8 +20,8 @@ An evolved creature whose body and behavior mimicked that of a lizard:
 
 <img width="363" alt="evolved2" src="https://user-images.githubusercontent.com/13933221/221694331-67130ca7-cc23-4537-bfe1-25c671bdef34.png">
 
-=========
-Commands to replicate the content presented in the video:
+
+**Commands to replicate the content presented in the video:**
 
 ```python3 search.py [MAX_SEED] [Repetitions]```
 
@@ -33,7 +33,7 @@ Would sequentially evolve 5 creatures optimizing for locomotion using 5 random s
 ```python3 show.py random 7 2```
 
 Would sequentially evolve 7 creatures optimizing for locomotion using 5 random seeds, twice. 
-=========
+
 
 In this project, we maximize *absolute average of final X coordinate across all links*. That is, at the end of the simulation, the fitness of a creature is determined by querying each link for its current X position, and taking the absolute value of the average across all links. This fitness function was chosen so that 'taller' or 'longer' creatures would have less of an advantage over more compact ones. 
 
