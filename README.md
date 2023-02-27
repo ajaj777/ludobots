@@ -22,7 +22,7 @@ An evolved creature whose body and behavior mimicked that of a lizard:
 
 In this project, we maximize *absolute average of final X coordinate across all links*. That is, at the end of the simulation, the fitness of a creature is determined by querying each link for its current X position, and taking the absolute value of the average across all links. This fitness function was chosen so that 'taller' or 'longer' creatures would have less of an advantage over more compact ones. 
 
-We repeated our experiment five times, with the random seeds (1,2,3,4,5). The below plot is the fitness (Y-axis) of the best-performing creature in the current generation (x-axis) across all experiments (labeled by their seed).
+We repeated our experiment five times, with a population of 25 individuals and for 25 generations of evolution, with the random seeds (1,2,3,4,5). The below plot is the fitness (Y-axis) of the best-performing creature in the current generation (x-axis) across all experiments (labeled by their seed).
 
 ![FitnessPlot_13:07:35_12345](https://user-images.githubusercontent.com/13933221/221696090-e6fb1154-7709-4d95-adc6-f219f15d3cb6.png)
 
