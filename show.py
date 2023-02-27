@@ -3,14 +3,10 @@ import numpy as np
 from solution import SOLUTION
 import constants as c
 import time
-
-filename = sys.argv[1]
-num = 1
-links = 5
-if len(sys.argv) > 2:
-    num = int(sys.argv[2])
-if len(sys.argv) > 3:
-    links = int(sys.argv[3])
+num = 3
+links = 8
+c.steps = 5000
+random = int(sys.argv[1])
 
 def show(filename):
     # rand_soln = SOLUTION(0)
@@ -24,7 +20,18 @@ def show_random(num, links):
         soln = SOLUTION(i,numLinks=links)
         soln.Start_Simulation("GUI",sync=True)
 
-if filename == 'random':
-    show_random(num,links)
+if random:
+    if len(sys.argv) > 2:
+        num = int(sys.argv[2])
+    if len(sys.argv) > 3:
+        links = int(sys.argv[3])
+    show_random(num, links)
+
 else:
-    show(filename)
+
+    timestamp = sys.argv[2]
+    brain_file = f'bestBrain{timestamp}.nndf'
+    body_file = f'bestBody{timestamp}.urdf'
+    
+    soln = SOLUTION(1, brain = brain_file, body = body_file)
+    soln.Show()

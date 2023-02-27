@@ -5,76 +5,60 @@ import os
 import math
 from datetime import datetime
 import numpy as np
+import time
+import random
+from utils import *
 
 class PARALLEL_HILL_CLIMBER():
-    def __init__(self, filename=None):
-        os.system('rm brain*.nndf')
+    def __init__(self, uid=None, filename=None, seed=None, show_first=False,extreme_mutation_flag=0):
+       # os.system('rm brain*.nndf')
         os.system('rm fitness*.txt')
-
+        self.seed = seed
+        self.uid = uid
+        self.show_first = show_first
+        self.extreme_mutation_flag = extreme_mutation_flag
+        if self.seed:
+            random.seed(seed)
+        self.fitness_data = np.zeros(c.numberOfGenerations)
         self.parents = {}
         self.nextAvailableID = 0
         for i in range(c.populationSize):
             if filename:
                 self.parents[i] = SOLUTION(self.nextAvailableID,filename=filename)
+                self.parents[i].first_iteration = copy.deepcopy(self.parents[i])
             else:
                 self.parents[i] = SOLUTION(self.nextAvailableID)
+                self.parents[i].first_iteration = copy.deepcopy(self.parents[i])
             self.nextAvailableID+=1
-        
     def Evaluate(self, solutions):
+
         for item in solutions:
+            
             solutions[item].Start_Simulation("DIRECT")
         for item in solutions:
             solutions[item].Wait_For_Simulation_To_End()
 
     def Evolve(self):
         self.Evaluate(self.parents)
-        # low = -math.inf
-        # fitness_list = []
-        # positives = []
-        # for parent in self.parents:
-        #     fitness_list.append(self.parents[parent].fitness)
-        #     positives = [x for x in fitness_list if x > 0]
-        
-        # attempts = 0
-        # while len(positives) < 3:
-        #     print("\n\nRegenerating first generation...\n\n")
-        #     os.system('rm brain*.nndf')
-        #     os.system('rm fitness*.txt')
-        #     print("Positive fitnesses: ", positives)
-        #     reg_count = 0
-        #     for parent in self.parents:
-                
-        #         if self.parents[parent].fitness < 0:
-        #             self.parents[parent] = SOLUTION(self.nextAvailableID)
-        #             self.nextAvailableID += 1
-        #             reg_count += 1
-
-        #     print(f"Regen {reg_count} parents.")
-        #     self.Evaluate(self.parents)
-        #     fitness_list = []
-        #     for parent in self.parents:
-        #         fitness_list.append(self.parents[parent].fitness)
-        #         positives = [x for x in fitness_list if x > 0]
-
-        #     attempts += 1
-        
-        # final = {}
-        # for parent in self.parents:
-        #     if self.parents[parent].fitness > 0:
-        #         final[parent] = self.parents[parent]
-
-        # self.parents = final
-        
         for currentGeneration in range(c.numberOfGenerations):
-            self.Evolve_For_One_Generation()
+            self.Evolve_For_One_Generation(currentGeneration)
 
-    def Evolve_For_One_Generation(self):
+        # record best fitness 
+    def Evolve_For_One_Generation(self, curr=0):
+       
+        self.Record_Best_Fitness(curr)
         self.Spawn()
-        self.Mutate()
+        self.Mutate(curr, extreme = self.extreme_mutation_flag)
         self.Evaluate(self.children)
         self.Print()
         self.Select()
         
+    def Record_Best_Fitness(self,i):
+        bestFitness = 0
+        for parent in self.parents:
+            pf = self.parents[parent].fitness
+            bestFitness = pf if pf > bestFitness else bestFitness
+        self.fitness_data[i] = bestFitness
 
     def Spawn(self):
         self.children = {}
@@ -83,9 +67,9 @@ class PARALLEL_HILL_CLIMBER():
             self.children[parent].Set_ID(self.nextAvailableID)
             self.nextAvailableID += 1
 
-    def Mutate(self):
+    def Mutate(self, gen, extreme=0):
         for child in self.children:
-            self.children[child].Mutate()
+            self.children[child].Mutate(gen, extreme=extreme)
 
     def Select(self):
         
@@ -103,25 +87,35 @@ class PARALLEL_HILL_CLIMBER():
                 bestParent = self.parents[parent]
                 best = bestParent.fitness
         bid = bestParent.Get_ID()
-        bestParent.Create_Brain()
+        #bestParent.Create_Brain()
+        #bestParent.Create_Body()
         now = str(datetime.now().strftime("%H:%M:%S"))
         
-
-        os.system(f'mv brain{bid}.nndf bestBrain{now}.nndf')
-        os.system(f'rm brain*.nndf')
         # need to save np weights into a file
-        good_threshold = 1
-        label = 'normal'
-        if bestParent.fitness > good_threshold:
-            label = 'good'
-
-        if c.z_threshold == 1.5:
-            label = 'OneFive'
-
-        np_filename = f'bestWeights{now}_{label}.npy'
+        #try:
+        label = f'_{self.seed}'
+        os.system(f'mv brain{bid}.nndf bestBrain{now}{label}.nndf')
+       # os.system(f'rm brain*.nndf')
+        np_filename = f'bestBrain{now}{label}.npy'
+        urdf_filename = f'bestBody{now}{label}.urdf'
+        fitness_filename = f'curve{now}{label}.npy'
+        os.system(f'mv body{bid}.urdf {urdf_filename}')
+        np.save(fitness_filename, self.fitness_data)
         np.save(np_filename, bestParent.weights)
-        bestParent.Start_Simulation('GUI')
-        
+        print("best fitness found:", bestParent.fitness)
+        #bestParent.Start_Simulation('GUI')
+        os.system(f'python3 show.py 0 {now}{label}')
+        os.system(f'python3 show_files.py brain{bestParent.first_iteration.Get_ID()} body{bestParent.first_iteration.Get_ID()}')
+        # except Exception as e:
+        #     print(f"Couldn't write some files. {e}")
+        #     return
+        #os.system('rm brain*')
+        #os.system('rm body*')
+        #os.system('rm fitness*')
+        self.Plot(time=now)
+       # print(f"Body and brain ID: {bid}")
+    def Plot(self, time=0):
+        make_fitness_plot(self.uid, [self.fitness_data], time=time, seeds = [self.seed])
         
     def Print(self):
         for parent in self.parents:

@@ -7,7 +7,7 @@ import constants as c
 import time as time
 
 class SIMULATION:
-    def __init__(self, directOrGUI, solutionID):
+    def __init__(self, directOrGUI, solutionID, brain=None, body=None):
         self.solutionID = solutionID
         self.directOrGUI = directOrGUI
         if directOrGUI == "DIRECT":
@@ -18,7 +18,8 @@ class SIMULATION:
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
         self.world = WORLD()
-        self.robot = ROBOT(self.solutionID)
+        
+        self.robot = ROBOT(self.solutionID, brain=brain, body=body)
         #pyrosim.Prepare_To_Simulate(self.robot.robotID)
 
     def Run(self):
@@ -34,6 +35,9 @@ class SIMULATION:
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()
+
+    def Print_Fitness(self):
+        self.robot.Print_Fitness()
 
     def __del__(self):
 

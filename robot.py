@@ -9,23 +9,26 @@ import time
 import numpy as np
 import constants as c
 import math
-
+import utils
+import sys
 class ROBOT:
-    def __init__(self,solutionID,filename=None):
+    def __init__(self,solutionID,brain=None, body=None):
         self.solutionID = solutionID
         self.motors = {}
         self.nn = None
-        if filename:
-            self.nn = NEURAL_NETWORK(filename)
+        self.robot = None
+        if brain:
+            self.nn = NEURAL_NETWORK(brain)
         else:
             self.nn = NEURAL_NETWORK(f"brain{self.solutionID}.nndf")
-        self.robot = p.loadURDF("body.urdf")
+        if body:
+            self.robot = p.loadURDF(body)
+        else:
+            self.robot = p.loadURDF(f"body{self.solutionID}.urdf")
         pyrosim.Prepare_To_Simulate(self.robot)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
         self.position_data = np.ndarray((c.steps,3))
-        self.z_threshold_count = 0
-        self.z_threshold = c.z_threshold
         #os.system(f'rm brain{self.solutionID}.nndf')
 
     def Prepare_To_Sense(self):
@@ -64,16 +67,39 @@ class ROBOT:
         position = p.getBasePositionAndOrientation(self.robot)[0]
         for j in range(3):
             self.position_data[i][j] = position[j]
-        if position[2] > self.z_threshold:
-            self.z_threshold_count += 1
 
     def Get_Fitness(self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        # basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
 
-        basePosition = basePositionAndOrientation[0]
+        # basePosition = basePositionAndOrientation[0]
+        X_pos = []
+        for i in range(p.getNumJoints(self.robot)):
+            X_pos.append(p.getLinkState(self.robot,i)[0][0])
+        
+        
+        # with open(f'robot{self.solutionID}.txt','w') as f:
+        #     f.write(str(X_pos))
 
-        x_value = basePosition[0]
+        avg_x  = np.mean(X_pos)
+       
+        fitness = abs(avg_x)
+        #fitness = abs(basePosition[0])
+        #fitness = basePosition[0]
         with open(f'tmp{self.solutionID}.txt','w') as file:
-            file.write(str(x_value))
+            file.write(str(fitness))
 
         os.system(f'mv tmp{self.solutionID}.txt fitness{self.solutionID}.txt')
+
+    def Print_Fitness(self):
+        X_pos = []
+        for i in range(p.getNumJoints(self.robot)):
+            X_pos.append(p.getLinkState(self.robot,i)[0][0])
+        
+        
+        # with open(f'robot{self.solutionID}.txt','w') as f:
+        #     f.write(str(X_pos))
+
+        avg_x  = np.mean(X_pos)
+       
+        fitness = abs(avg_x)
+        print(f"Fitness value of this simulation: {fitness}")
