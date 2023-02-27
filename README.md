@@ -20,6 +20,22 @@ An evolved creature whose body and behavior mimicked that of a lizard:
 
 <img width="363" alt="evolved2" src="https://user-images.githubusercontent.com/13933221/221694331-67130ca7-cc23-4537-bfe1-25c671bdef34.png">
 
+~~~~~~~~~~
+Commands to replicate the content presented in the video:
+
+```python3 search.py [MAX_SEED] [Repetitions]```
+
+e.g.\
+```python3 search.py 5 1```
+
+Would sequentially evolve 5 creatures optimizing for locomotion using 5 random seeds, one time. 
+
+```python3 show.py random 7 2```
+
+Would sequentially evolve 7 creatures optimizing for locomotion using 5 random seeds, twice. 
+
+~~~~~~~~~~
+
 In this project, we maximize *absolute average of final X coordinate across all links*. That is, at the end of the simulation, the fitness of a creature is determined by querying each link for its current X position, and taking the absolute value of the average across all links. This fitness function was chosen so that 'taller' or 'longer' creatures would have less of an advantage over more compact ones. 
 
 We repeated our experiment five times, with a population of 25 individuals and for 25 generations of evolution, with the random seeds (1,2,3,4,5). The below plot is the fitness (Y-axis) of the best-performing creature in the current generation (x-axis) across all experiments (labeled by their seed).
@@ -41,17 +57,4 @@ Movement is dictated by a fully connected, two-layer neural network connecting s
 
 <img width="1010" alt="Screen Shot 2023-02-20 at 11 59 39 PM" src="https://user-images.githubusercontent.com/13933221/220260113-9e401507-33e3-47fd-8883-a783b080c7e6.png">
 
-The above is all a repetition of the information in the 'creature3d' branch, where we detail how bodies are generated. Here is a diagram explaining how we actaully evolve these creatures so that they reliably travel:
 
-Commands to replicate the content presented in the video:
-
-```python3 search.py [MAX_SEED] [Repetitions]```
-
-e.g.\
-```python3 search.py 5 1```
-
-Would sequentially evolve 5 creatures optimizing for locomotion using 5 random seeds, one time. 
-
-```python3 show.py random 7 2```
-
-Would sequentially evolve 7 creatures optimizing for locomotion using 5 random seeds, twice. 
