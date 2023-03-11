@@ -17,7 +17,7 @@ https://imgur.com/5IzoXZl
  This random creature lacks an organized structure and struggles to move.<br>
  <p align='center'>
 <img width="337" alt="Screen Shot 2023-03-11 at 5 08 13 PM" src="https://user-images.githubusercontent.com/13933221/224515404-01e72d6f-47c7-4e07-aeb8-f6c9def63e5b.png"><br>
-</p?
+</p>
 
 One evolved creature learned to move by 'flapping' its left and right arms, purposefully setting itself off balance so that it would fall forward. As it fell, it would flap again, and in this way consistently travel<br>
  <p align='center'>
