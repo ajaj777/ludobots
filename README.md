@@ -5,9 +5,8 @@ This project was created using the Pyrosim library (https://ccappelle.github.io/
 Video: \
 https://youtu.be/wO4xQoxgRGM
 
-Gif: 
-
-[ imgur link here? ]
+Gif: \
+https://imgur.com/5IzoXZl
 
 ## Examples of Random versus Evolved Creatures: 
  
