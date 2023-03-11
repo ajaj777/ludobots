@@ -19,7 +19,7 @@ https://imgur.com/5IzoXZl
 <img width="337" alt="Screen Shot 2023-03-11 at 5 08 13 PM" src="https://user-images.githubusercontent.com/13933221/224515404-01e72d6f-47c7-4e07-aeb8-f6c9def63e5b.png"><br>
 </p>
 
-One evolved creature learned to move by 'flapping' its left and right arms, purposefully setting itself off balance so that it would fall forward. As it fell, it would flap again, and in this way consistently travel<br>
+One evolved creature learned to move by 'flapping' its left and right arms, purposefully setting itself off balance so that it would fall forward. As it fell, it would flap again, and in this way consistently travel.<br>
  <p align='center'>
 <img width="288" alt="Screen Shot 2023-03-11 at 5 12 01 PM" src="https://user-images.githubusercontent.com/13933221/224515522-9c4f5b1a-5bbd-4b27-a72e-7875c039d11e.png"><br>
 </p>
