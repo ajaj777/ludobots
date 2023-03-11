@@ -11,6 +11,20 @@ Gif:
 
 ## Examples of Random versus Evolved Creatures: 
  [ images here ]
+ 
+ This random creature was very good at moving in circles, but it hardly displaced itself from its starting position.
+ <img width="211" alt="Screen Shot 2023-03-11 at 5 07 32 PM" src="https://user-images.githubusercontent.com/13933221/224515385-aa0193fd-5603-4ccd-bd08-040da1a84416.png"><br>
+ This random creature lacks an organized structure and struggles to move.
+<img width="337" alt="Screen Shot 2023-03-11 at 5 08 13 PM" src="https://user-images.githubusercontent.com/13933221/224515404-01e72d6f-47c7-4e07-aeb8-f6c9def63e5b.png"><br>
+
+
+One evolved creature learned to move by 'flapping' its left and right arms, purposefully setting itself off balance so that it would fall forward. As it fell, it would flap again, and in this way consistently travel.
+<img width="288" alt="Screen Shot 2023-03-11 at 5 12 01 PM" src="https://user-images.githubusercontent.com/13933221/224515522-9c4f5b1a-5bbd-4b27-a72e-7875c039d11e.png"><br>
+
+The following creature was my favorite product of evolution. Despite its miniature size and inherent disadvantage (since larger creatures have an inherent advantage in our fitness function), the 'jumping' gait this creature evolved allowed it to outperform its peers (see end of Youtube video linked above).
+<img width="172" alt="Screen Shot 2023-03-11 at 5 09 52 PM" src="https://user-images.githubusercontent.com/13933221/224515459-317347e2-4a5d-41ac-9b2d-b9397df45ca2.png">
+
+
 ## How Does This All Work?
 We use a direct encoding that is a one-to-one map from genotype (genes) to phenotype (physical gene expression). We store a list of 'links' and a list of joints representing how the links are connected. We also track the brain of each creature, which is a fully connected neural network linking sensor neurons and motor neurons. (See 'locomotion' branch for more details.)
 <p align='center'>
