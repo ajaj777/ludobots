@@ -10,7 +10,6 @@ Gif:
 [ imgur link here? ]
 
 ## Examples of Random versus Evolved Creatures: 
- [ images here ]
  
  This random creature was very good at moving in circles, but it hardly displaced itself from its starting position.\
  <img width="211" alt="Screen Shot 2023-03-11 at 5 07 32 PM" src="https://user-images.githubusercontent.com/13933221/224515385-aa0193fd-5603-4ccd-bd08-040da1a84416.png"><br>
