@@ -32,7 +32,7 @@ View **evolved** creatures:
 
 ```python3 show.py 0 [UID]```
 
--UID: Timestamp with seed appended. E.g. ```23:04:58_1``` would run bestBrain23:04:58_1 with its associated body bestBody23:04:58_1 (which used a random seed of 1)
+-UID: Timestamp with seed appended. E.g. ```python3 show.py 1 23:04:58_1``` would run ```bestBrain23:04:58_1``` with its associated body ```bestBody23:04:58_1``` (which used a random seed of ```1```).
 
 ```search.py``` can be used to conduct evolution. 
 
