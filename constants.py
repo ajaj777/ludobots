@@ -1,21 +1,33 @@
 import numpy as np
 
 
+# evo parameters
+populationSize = 10
+numberOfGenerations = 500
+# number of sim steps
+steps = 3000
 
-# sensorNeurons = ["Torso","BackLeg","FrontLeg","LeftLeg","RightLeg","FrontLowerLeg","BackLowerLeg","LeftLowerLeg","RightLowerLeg"]
-# motorNeurons = ["Torso_BackLeg","Torso_FrontLeg","Torso_LeftLeg","Torso_RightLeg","FrontLeg_FrontLowerLeg","BackLeg_BackLowerLeg","LeftLeg_LeftLowerLeg","RightLeg_RightLowerLeg"]
 
+
+
+
+
+
+
+
+
+
+### DONT TOUCH THESE THEY DONT DO ANYTHING ###
 
 jointTypes = []
 
 sensorNeurons = ["Torso","LeftLeg","RightLeg","LowerLeftLeg","LowerRightLeg","LeftFoot","RightFoot","LeftArmX","LeftArmZ","RightArmX","RightArmZ","LowerLeftArm","LowerRightArm"]
 motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg","Torso_LowerLeftLeg","Torso_LowerRightLeg","LowerLeftLeg_LeftFoot","LowerRightLeg_RightFoot","Torso_LeftArmX","LeftArmX_LeftArmZ","Torso_RightArmX","RightArmX_RightArmZ","LeftArmZ_LowerLeftArm","RightArmZ_LowerRightArm"]
 
-populationSize = 10
-numberOfGenerations = 500
+
 
 z_threshold = 1.5
-steps = 3000
+
 
 amplitude = np.pi/4
 phaseOffset = np.pi/32

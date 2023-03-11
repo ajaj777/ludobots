@@ -15,17 +15,20 @@ def show(filename):
     soln = SOLUTION(1, filename=filename)
     soln.Start_Simulation("GUI")
 
-def show_random(num, links):
+def show_random(num=1, links=-1):
     for i in range(num):
         soln = SOLUTION(i,numLinks=links)
         soln.Start_Simulation("GUI",sync=True)
 
 if random:
-    if len(sys.argv) > 2:
+    if len(sys.argv) == 2:
+        show_random()
+    elif len(sys.argv) > 2:
         num = int(sys.argv[2])
-    if len(sys.argv) > 3:
+        show_random(num, links=links)
+    elif len(sys.argv) > 3:
         links = int(sys.argv[3])
-    show_random(num, links)
+        show_random(num, links)
 
 else:
 

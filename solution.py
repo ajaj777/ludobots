@@ -6,10 +6,12 @@ import random
 import time
 from creature import *
 from simulation import SIMULATION
-
+import random as rand
 class SOLUTION():
     def __init__(self, id, brain=None, body=None, numLinks=8):
         self.myID = id
+        if numLinks == -1:
+            numLinks = min(max(2,math.ceil(rand.gauss(mu=10,sigma=5))), 25)
         self.creature = RandomCreature(uid = self.myID, numLinks=numLinks)
         self.brain = brain
         self.body = body
