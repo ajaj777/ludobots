@@ -37,7 +37,7 @@ We use a direct encoding that is a one-to-one map from genotype (genes) to pheno
 <img width="450" alt="Screen Shot 2023-03-11 at 1 49 20 PM" src="https://user-images.githubusercontent.com/13933221/224508701-1c2b1a76-7085-4fe2-a8ad-d766b2d3b1c9.png">
 <br>
  </p>
-We evolve for 100 generations. During earlier generations, we make more dramatic alterations such as changing the number of links or their arrangement. As evolution reaches its later generations, we make smaller tweaks, such as altering the size of links and the synpactic weights between neurons.
+We evolve for 100 generations. During earlier generations, we make more dramatic alterations such as changing the number of links or their arrangement. As evolution reaches its later generations, we make smaller tweaks, such as altering the size of links and the synaptic weights between neurons.
 <p align='center'>
 <img width="500" alt="Screen Shot 2023-03-11 at 1 50 49 PM" src="https://user-images.githubusercontent.com/13933221/224508780-6120e2e4-c74c-4756-b242-f2f6533dda22.png">
 <br>
