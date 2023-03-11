@@ -1,20 +1,16 @@
 pybullet build time: Jan  7 2023 16:29:41
-Version = 4.1 ATI-4.6.21
-Vendor = ATI Technologies Inc.
-Renderer = AMD Radeon Pro 5600M OpenGL Engine
-b3Printf: Selected demo: Physics Server
-startThreads creating 1 threads.
-starting thread 0
-started thread 0 
-MotionThreadFunc thread started
-b3Printf: b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
-
-b3Printf: expected a world element, continuing without it.
-numActiveThreads = 0
-stopping threads
-Thread with taskId 0 exiting
-Thread TERMINATED
-destroy semaphore
-semaphore destroyed
-destroy main semaphore
-main semaphore destroyed
+b3Warning[examples/Importers/ImportURDFDemo/BulletUrdfImporter.cpp,126]:
+expected a world element, continuing without it.Traceback (most recent call last):
+  File "simulate.py", line 7, in <module>
+    simulation.Run()
+  File "/Users/aj/Desktop/Northwestern 2022-2023/Winter/CS 396 Artificial Life/ludobots/simulation.py", line 40, in Run
+    self.swarm[robot].Think()
+  File "/Users/aj/Desktop/Northwestern 2022-2023/Winter/CS 396 Artificial Life/ludobots/robot.py", line 41, in Think
+    self.nn.Update()
+  File "/Users/aj/Desktop/Northwestern 2022-2023/Winter/CS 396 Artificial Life/ludobots/pyrosim/neuralNetwork.py", line 34, in Update
+    self.neurons[neuronName].Update_Sensor_Neuron()      
+  File "/Users/aj/Desktop/Northwestern 2022-2023/Winter/CS 396 Artificial Life/ludobots/pyrosim/neuron.py", line 24, in Update_Sensor_Neuron
+    self.Set_Value(pyrosim.Get_Touch_Sensor_Value_For_Link(self.Get_Link_Name()))
+  File "/Users/aj/Desktop/Northwestern 2022-2023/Winter/CS 396 Artificial Life/ludobots/pyrosim/pyrosim.py", line 49, in Get_Touch_Sensor_Value_For_Link
+    desiredLinkIndex = linkNamesToIndices[linkName]
+KeyError: 'Link0'
