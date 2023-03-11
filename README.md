@@ -3,7 +3,7 @@
 This project was created using the Pyrosim library (https://ccappelle.github.io/pyrosim/) and pybullet. Codebase adapted from the MOOC ludobots course (https://www.reddit.com/r/ludobots/).
 
 Video:
-[ video link here ]
+https://youtu.be/wO4xQoxgRGM
 
 Gif: 
 
