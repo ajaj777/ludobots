@@ -9,6 +9,11 @@ Gif:
 
 [ imgur link here? ]
 
+# Examples of Random versus Evolved Creatures: 
+
+## How Does This All Work?
+
+
 ## Commands to Visualize Creatures ## 
 
 ```show.py``` can be used to visualize creatures, both random and evolved.
@@ -47,8 +52,5 @@ Would sequentially evolve 7 creatures optimizing for locomotion using 5 random s
 
 
 
-# Examples of Random versus Evolved Creatures: 
-
-## How Does This All Work?
 
 
