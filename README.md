@@ -5,7 +5,7 @@ This project was created using the Pyrosim library (https://ccappelle.github.io/
 Video: \
 https://youtu.be/wO4xQoxgRGM
 
-Gif: \
+Gif: 
 
 [ imgur link here? ]
 
