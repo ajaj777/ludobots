@@ -2,7 +2,7 @@
 
 This project was created using the Pyrosim library (https://ccappelle.github.io/pyrosim/) and pybullet. Codebase adapted from the MOOC ludobots course (https://www.reddit.com/r/ludobots/).
 
-If you don't want to read anything, looking at the images and diagrams should provide a sufficient understanding. For a more precise and deeper comprehension, I recommend reading the brief descriptions provided as well.
+If you don't want to read anything, looking at the images and diagrams should provide a sufficient understanding. For a more precise and deeper comprehension of what we did here, I recommend reading the brief descriptions provided as well.
 
 Video: \
 https://youtu.be/wO4xQoxgRGM
