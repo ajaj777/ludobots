@@ -10,15 +10,19 @@ Gif:
 [ imgur link here? ]
 
 ## Examples of Random versus Evolved Creatures: 
-
+ [ images here ]
 ## How Does This All Work?
+We use a direct encoding that is a one-to-one map from genotype (genes) to phenotype (physical gene expression).
 <p align='center'>
 <img width="450" alt="Screen Shot 2023-03-11 at 1 49 20 PM" src="https://user-images.githubusercontent.com/13933221/224508701-1c2b1a76-7085-4fe2-a8ad-d766b2d3b1c9.png">
 <br>
+We evolve for 100 generations. During earlier generations, we make more dramatic alterations such as changing the number of links or their arrangement. As evolution reaches its later generations, we make smaller tweaks, such as altering the size of links and the synpactic weights between neurons.
 <img width="500" alt="Screen Shot 2023-03-11 at 1 50 49 PM" src="https://user-images.githubusercontent.com/13933221/224508780-6120e2e4-c74c-4756-b242-f2f6533dda22.png">
 <br>
+Our method of evolution is a parallel hill climber. A population starting with 100 randomly generated creatures is maintained. At each generation, parents give rise to one child each. If the child performs better, it takes the place of its parent. This lets us guarantee that the quality of creatures only improves across evolution. At the end, we choose the best creature we have found so far, and crown it winner. 
 <img width="700" alt="Screen Shot 2023-03-11 at 1 51 13 PM" src="https://user-images.githubusercontent.com/13933221/224508802-19237243-f8ca-450c-ab91-cdfa5513d47a.png">
 <br>
+Our experiment conducted this evolution across 10 different random seeds, for 100 generations each, with 10 population members. This gives us a total of 10*100*10 = 10,000 simulations. Below is a graph denoting the quality (fitness) of the best creature at the current generation. We evolved creatures for locomotion along the x-axis.
  <img width="635" alt="Screen Shot 2023-03-11 at 2 05 21 PM" src="https://user-images.githubusercontent.com/13933221/224509340-cf4d445d-dbe8-4e0e-95d3-57cb59afba69.png">
 
 
