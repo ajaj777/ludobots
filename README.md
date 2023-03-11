@@ -1,4 +1,4 @@
-## Assignment 8: Optimizing Morphology and Behavior for Locomotion ##
+## Final Project (The Artist Route) ##
 
 This project was created using the Pyrosim library (https://ccappelle.github.io/pyrosim/) and pybullet. Codebase adapted from the MOOC ludobots course (https://www.reddit.com/r/ludobots/).
 
