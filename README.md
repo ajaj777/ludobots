@@ -19,7 +19,8 @@ Gif:
 <br>
 <img width="700" alt="Screen Shot 2023-03-11 at 1 51 13 PM" src="https://user-images.githubusercontent.com/13933221/224508802-19237243-f8ca-450c-ab91-cdfa5513d47a.png">
 <br>
-  ![FitnessPlot_00:23:33_12345678910](https://user-images.githubusercontent.com/13933221/224509308-2edcc809-8891-4252-904b-60c1249c772e.png)
+ <img width="635" alt="Screen Shot 2023-03-11 at 2 05 21 PM" src="https://user-images.githubusercontent.com/13933221/224509340-cf4d445d-dbe8-4e0e-95d3-57cb59afba69.png">
+
 
 </p>
 
