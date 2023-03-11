@@ -13,6 +13,9 @@ Gif:
 
 ## How Does This All Work?
 
+![GenoPheno](https://user-images.githubusercontent.com/13933221/224508630-6e72d590-7f54-4ffa-b81e-36c15bab8ad5.jpg)
+![Mutations](https://user-images.githubusercontent.com/13933221/224508636-bb0abfdb-9dc3-486b-a005-d2acdf830e9a.jpg)
+![PHC](https://user-images.githubusercontent.com/13933221/224508640-85c10921-71ea-483e-aede-b630aab58b72.jpg)
 
 ### Commands to Visualize Creatures 
 
