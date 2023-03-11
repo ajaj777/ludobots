@@ -216,6 +216,21 @@ class RandomCreature():
         return False
 
 
+    def large_mutate(self):
+        tm = random.randint(0,10)
+        if tm <= 3:
+            self.small_mutate()
+        else:
+            # new number of links
+            print('large mutation.')
+            self.numLinks = min(20,max(3,math.ceil(random.gauss(mu=self.numLinks, sigma=4))))
+            print(f'numLinks: {self.numLinks}')
+            self.generate_links()
+            self.generate_joints()
+            self.original_links = copy.deepcopy(self.links)
+            self.original_joints = copy.deepcopy(self.joints)
+            self.create_body_plan()
+
     # minor tweaks for later in evolution
     def small_mutate(self, extreme=0):
         #randomly remove some number of links, and/or change some of the joints.
@@ -228,7 +243,8 @@ class RandomCreature():
         tm = random.randint(0,10)
         if extreme==1:
             tm = 10
-        if tm <= 0 and tm <= 9:
+        if tm >= 0 and tm <= 9:
+            print('changing links')
             # change random number of links (only end links)
             links = []
             nl = random.randint(1,min(len(self.links)-1,3))
@@ -261,12 +277,14 @@ class RandomCreature():
         #     # also need to remove the corresponding joint
 
 
-        # regen the entire thing
+        # regen the entire thing with same links
         elif tm == 10:
             print('new body plan')
             self.links = self.original_links
             self.joints = []
             self.create_body_plan()
+            #self.original_links = copy.deepcopy(self.links)
+            #self.original_joints = copy.deepcopy(self.joints)
 
     def mutate_link(self, link):
         # will only ever be called once abbs_pos is defined

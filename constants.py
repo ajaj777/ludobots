@@ -11,8 +11,8 @@ jointTypes = []
 sensorNeurons = ["Torso","LeftLeg","RightLeg","LowerLeftLeg","LowerRightLeg","LeftFoot","RightFoot","LeftArmX","LeftArmZ","RightArmX","RightArmZ","LowerLeftArm","LowerRightArm"]
 motorNeurons = ["Torso_LeftLeg", "Torso_RightLeg","Torso_LowerLeftLeg","Torso_LowerRightLeg","LowerLeftLeg_LeftFoot","LowerRightLeg_RightFoot","Torso_LeftArmX","LeftArmX_LeftArmZ","Torso_RightArmX","RightArmX_RightArmZ","LeftArmZ_LowerLeftArm","RightArmZ_LowerRightArm"]
 
-populationSize = 1
-numberOfGenerations = 25
+populationSize = 10
+numberOfGenerations = 500
 
 z_threshold = 1.5
 steps = 3000

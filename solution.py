@@ -61,8 +61,10 @@ class SOLUTION():
         randomColumn = random.randint(0,self.numMotorNeurons-1)
         self.weights[randomRow][randomColumn] = random.random() * 2 - 1
         # mutate body plan
-        if gen < 0.5 * c.numberOfGenerations:
-            self.creature.small_mutate(extreme=extreme)
+        if gen < 0.2 * c.numberOfGenerations:
+            self.creature.large_mutate()
+        elif gen >= 0.2 * c.numberOfGenerations and gen <= 0.6 * c.numberOfGenerations:
+            self.creature.small_mutate()
 
     def Generate(self):
         self.Create_World()

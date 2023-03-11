@@ -22,6 +22,9 @@ def make_fitness_plot(uid, fitness_arrs, time, seeds=None):
         plt.legend()
         seed_str = "".join(str(x) for x in seeds)
         label = f'FitnessPlot_{time}_{seed_str}.png'
+        plt.xlabel('Generations')
+        plt.ylabel('Fitness (avg abs X position of links)')
+        #plt.xticks(range(0,len(fitness_arrs[0])))
         plt.savefig(label)
        # plt.show()
         

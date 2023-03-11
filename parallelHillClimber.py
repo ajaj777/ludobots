@@ -70,7 +70,8 @@ class PARALLEL_HILL_CLIMBER():
     def Mutate(self, gen, extreme=0):
         for child in self.children:
             self.children[child].Mutate(gen, extreme=extreme)
-
+        now = str(datetime.now().strftime("%H:%M:%S"))
+        print(f'Mutation complete at time: {now}')
     def Select(self):
         
         for parent in self.parents:
@@ -104,8 +105,9 @@ class PARALLEL_HILL_CLIMBER():
         np.save(np_filename, bestParent.weights)
         print("best fitness found:", bestParent.fitness)
         #bestParent.Start_Simulation('GUI')
+        
         os.system(f'python3 show.py 0 {now}{label}')
-        os.system(f'python3 show_files.py brain{bestParent.first_iteration.Get_ID()} body{bestParent.first_iteration.Get_ID()}')
+       # os.system(f'python3 show_files.py brain{bestParent.first_iteration.Get_ID()} body{bestParent.first_iteration.Get_ID()}')
         # except Exception as e:
         #     print(f"Couldn't write some files. {e}")
         #     return
