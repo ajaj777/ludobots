@@ -12,7 +12,7 @@ Gif:
 ## Examples of Random versus Evolved Creatures: 
  [ images here ]
 ## How Does This All Work?
-We use a direct encoding that is a one-to-one map from genotype (genes) to phenotype (physical gene expression).
+We use a direct encoding that is a one-to-one map from genotype (genes) to phenotype (physical gene expression). We store a list of 'links' and a list of joints representing how the links are connected. We also track the brain of each creature.
 <p align='center'>
 <img width="450" alt="Screen Shot 2023-03-11 at 1 49 20 PM" src="https://user-images.githubusercontent.com/13933221/224508701-1c2b1a76-7085-4fe2-a8ad-d766b2d3b1c9.png">
 <br>
