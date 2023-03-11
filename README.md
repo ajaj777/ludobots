@@ -12,8 +12,9 @@ Gif:
 ## Examples of Random versus Evolved Creatures: 
 
 ## How Does This All Work?
-<img width="400" alt="Screen Shot 2023-03-11 at 1 49 20 PM" src="https://user-images.githubusercontent.com/13933221/224508701-1c2b1a76-7085-4fe2-a8ad-d766b2d3b1c9.png">
+<img width="450" alt="Screen Shot 2023-03-11 at 1 49 20 PM" src="https://user-images.githubusercontent.com/13933221/224508701-1c2b1a76-7085-4fe2-a8ad-d766b2d3b1c9.png">
 
+<img width="450" alt="Screen Shot 2023-03-11 at 1 50 17 PM" src="https://user-images.githubusercontent.com/13933221/224508746-cf853f46-97bb-4342-be1b-68d899b499fd.png">
 
 ### Commands to Visualize Creatures 
 
