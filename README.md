@@ -18,6 +18,9 @@ Gif:
 <img width="500" alt="Screen Shot 2023-03-11 at 1 50 49 PM" src="https://user-images.githubusercontent.com/13933221/224508780-6120e2e4-c74c-4756-b242-f2f6533dda22.png">
 <br>
 <img width="700" alt="Screen Shot 2023-03-11 at 1 51 13 PM" src="https://user-images.githubusercontent.com/13933221/224508802-19237243-f8ca-450c-ab91-cdfa5513d47a.png">
+<br>
+  ![FitnessPlot_00:23:33_12345678910](https://user-images.githubusercontent.com/13933221/224509308-2edcc809-8891-4252-904b-60c1249c772e.png)
+
 </p>
 
 ### Commands to Visualize Creatures 
