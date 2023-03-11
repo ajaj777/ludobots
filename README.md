@@ -1,4 +1,4 @@
-### Final Project (The Artist Route) ###
+# Final Project (The Artist Route) 
 
 This project was created using the Pyrosim library (https://ccappelle.github.io/pyrosim/) and pybullet. Codebase adapted from the MOOC ludobots course (https://www.reddit.com/r/ludobots/).
 
@@ -9,12 +9,12 @@ Gif:
 
 [ imgur link here? ]
 
-# Examples of Random versus Evolved Creatures: 
+## Examples of Random versus Evolved Creatures: 
 
 ## How Does This All Work?
 
 
-# Commands to Visualize Creatures # 
+### Commands to Visualize Creatures 
 
 ```show.py``` can be used to visualize creatures, both random and evolved.
 
