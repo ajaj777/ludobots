@@ -84,7 +84,7 @@ Would sequentially evolve 5 creatures optimizing for locomotion using 5 random s
 
 ```python3 search.py random 7 2```
 
-Would sequentially evolve 7 creatures optimizing for locomotion using 5 random seeds, twice. 
+Would sequentially evolve 7 creatures optimizing for locomotion using 7 random seeds, twice. 
 
 
 
