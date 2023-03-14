@@ -37,7 +37,7 @@ We use a direct encoding that is a one-to-one map from genotype (genes) to pheno
 <img width="450" alt="Screen Shot 2023-03-11 at 1 49 20 PM" src="https://user-images.githubusercontent.com/13933221/224508701-1c2b1a76-7085-4fe2-a8ad-d766b2d3b1c9.png">
 <br>
  </p>
- Brain evolution consists of randomly modifiying one of the synaptic weights at each stepf of evolution:
+ Brain evolution consists of randomly modifiying one of the synaptic weights at each step of evolution:
  <p align='center'>
  
 <img width="855" alt="Screen Shot 2023-03-14 at 1 38 15 PM" src="https://user-images.githubusercontent.com/13933221/225105035-98e9cc00-85a1-42e5-b938-ac04a2cb6a5a.png">
