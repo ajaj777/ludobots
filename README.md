@@ -32,11 +32,18 @@ The following creature was my favorite product of evolution. Despite its miniatu
 </p>
 
 ## How Does This All Work?
-We use a direct encoding that is a one-to-one map from genotype (genes) to phenotype (physical gene expression). We store a list of 'links' and a list of joints representing how the links are connected. We also track the brain of each creature, which is a fully connected neural network linking sensor neurons and motor neurons. (See 'locomotion' branch for more details.)
+We use a direct encoding that is a one-to-one map from genotype (genes) to phenotype (physical gene expression). We store a list of 'links' and a list of joints representing how the links are connected. We also track the brain of each creature, which is a fully connected neural network linking sensor neurons and motor neurons. (See 'locomotion' branch for more details, as well as the below diagrams.)
 <p align='center'>
 <img width="450" alt="Screen Shot 2023-03-11 at 1 49 20 PM" src="https://user-images.githubusercontent.com/13933221/224508701-1c2b1a76-7085-4fe2-a8ad-d766b2d3b1c9.png">
 <br>
  </p>
+ Brain evolution consists of randomly modifiying one of the synaptic weights at each stepf of evolution:
+ <p align='center'>
+ 
+<img width="855" alt="Screen Shot 2023-03-14 at 1 38 15 PM" src="https://user-images.githubusercontent.com/13933221/225105035-98e9cc00-85a1-42e5-b938-ac04a2cb6a5a.png">
+
+ <br>
+</p>
 We evolve for 100 generations. During earlier generations, we make more dramatic alterations such as changing the number of links or their arrangement. As evolution reaches its later generations, we make smaller tweaks, such as altering the size of links and the synaptic weights between neurons.
 <p align='center'>
 <img width="500" alt="Screen Shot 2023-03-11 at 1 50 49 PM" src="https://user-images.githubusercontent.com/13933221/224508780-6120e2e4-c74c-4756-b242-f2f6533dda22.png">
